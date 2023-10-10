@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Irina Slukina](https://up.htmlacademy.ru/react/14/user/990505).
-* Наставник: `Неизвестно`.
+* Наставник: [Роман Усков](https://htmlacademy.ru/profile/id1019285).
 
 ---
 

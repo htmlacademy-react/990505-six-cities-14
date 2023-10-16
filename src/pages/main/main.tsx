@@ -116,11 +116,11 @@ function Main({offerCount}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard cardClassName='cities__card' />
-                <PlaceCard cardClassName='cities__card' />
-                <PlaceCard cardClassName='cities__card' />
-                <PlaceCard cardClassName='cities__card' />
-                <PlaceCard cardClassName='cities__card' />
+                <PlaceCard />
+                <PlaceCard className='cities__card' />
+                <PlaceCard className='cities__card' />
+                <PlaceCard className='cities__card' />
+                <PlaceCard className='cities__card' />
               </div>
             </section>
             <div className="cities__right-section">

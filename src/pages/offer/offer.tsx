@@ -296,7 +296,7 @@ function Offer(): JSX.Element {
                     id="review"
                     name="review"
                     placeholder="Tell how was your stay, what you like and what can be improved"
-                    defaultValue={''}
+                    defaultValue=''
                   />
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
@@ -325,9 +325,9 @@ function Offer(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <PlaceCard cardClassName="near-places__card"/>
-              <PlaceCard cardClassName="near-places__card"/>
-              <PlaceCard cardClassName="near-places__card"/>
+              <PlaceCard className="near-places__card"/>
+              <PlaceCard className="near-places__card"/>
+              <PlaceCard className="near-places__card"/>
             </div>
           </section>
         </div>

@@ -1,9 +1,15 @@
 import {JSX} from 'react';
 import Header from '../../components/app/header/header';
+import {Helmet} from 'react-helmet-async';
+import {Link} from 'react-router-dom';
+import {AppRouter} from '../../routes';
 
 function Favorites(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: favorites</title>
+      </Helmet>
       <Header isAuthorizedUser />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
@@ -178,7 +184,7 @@ function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRouter.Main}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -186,7 +192,7 @@ function Favorites(): JSX.Element {
             width={64}
             height={33}
           />
-        </a>
+        </Link>
       </footer>
     </div>
   );

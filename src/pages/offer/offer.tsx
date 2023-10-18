@@ -1,10 +1,15 @@
 import {JSX} from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 import Header from '../../components/app/header/header';
+import {Helmet} from 'react-helmet-async';
+
 
 function Offer(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
       <Header isAuthorizedUser />
       <main className="page__main page__main--offer">
         <section className="offer">

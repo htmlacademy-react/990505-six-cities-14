@@ -2,6 +2,7 @@ import {JSX} from 'react';
 import UserStatusBar from './user-status-bar';
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../../routes';
+import Container from '../container';
 
 type HeaderProps = {
   isAuthorizedUser: boolean;
@@ -10,7 +11,7 @@ type HeaderProps = {
 function Header({isAuthorizedUser}: HeaderProps): JSX.Element {
   return (
     <header className="header">
-      <div className="container">
+      <Container >
         <div className="header__wrapper">
           <div className="header__left">
             <Link className="header__logo-link header__logo-link--active" to={AppRouter.Main} >
@@ -25,7 +26,7 @@ function Header({isAuthorizedUser}: HeaderProps): JSX.Element {
           </div>
           {isAuthorizedUser ? <UserStatusBar /> : ''}
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

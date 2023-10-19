@@ -4,7 +4,7 @@ import Header from './app/header/header';
 
 type PageProps = {
   title: string;
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
   className: string;
   isAuthorizedUser: boolean;
 }

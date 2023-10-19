@@ -1,5 +1,6 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
+import {AppRouter} from '../../routes';
 
 type PlaceCardProps = {
   className?: string;
@@ -12,7 +13,7 @@ function PlaceCard({className = ''}: PlaceCardProps): JSX.Element {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="offer">
+        <Link to={AppRouter.Offer}>
           <img
             className="place-card__image"
             src="img/apartment-01.jpg"

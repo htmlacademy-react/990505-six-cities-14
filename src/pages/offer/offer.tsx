@@ -1,16 +1,11 @@
 import {JSX} from 'react';
 import PlaceCard from '../../components/place-card/place-card';
-import Header from '../../components/app/header/header';
-import {Helmet} from 'react-helmet-async';
+import Page from '../../components/page';
 
 
 function Offer(): JSX.Element {
   return (
-    <div className="page">
-      <Helmet>
-        <title>6 cities: offer</title>
-      </Helmet>
-      <Header isAuthorizedUser />
+    <Page className="page" title="6 cities: offer" isAuthorizedUser>
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -301,7 +296,7 @@ function Offer(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </Page>
   );
 }
 

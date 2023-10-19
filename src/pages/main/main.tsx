@@ -1,7 +1,6 @@
 import {JSX} from 'react';
 import PlaceCard from '../../components/place-card/place-card';
-import Header from '../../components/app/header/header';
-import {Helmet} from 'react-helmet-async';
+import Page from '../../components/page';
 
 type MainProps = {
   offerCount: number;
@@ -9,11 +8,7 @@ type MainProps = {
 
 function Main({offerCount}: MainProps): JSX.Element {
   return (
-    <div className="page page--gray page--main">
-      <Helmet>
-        <title>6 cities</title>
-      </Helmet>
-      <Header isAuthorizedUser />
+    <Page className="page page--gray page--main" title="6 cities" isAuthorizedUser>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -97,7 +92,7 @@ function Main({offerCount}: MainProps): JSX.Element {
           </div>
         </div>
       </main>
-    </div>
+    </Page>
   );
 }
 

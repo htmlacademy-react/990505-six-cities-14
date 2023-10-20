@@ -1,10 +1,11 @@
 import {JSX} from 'react';
-import Header from '../../components/app/header/header';
+import {Link} from 'react-router-dom';
+import {AppRouter} from '../../routes';
+import Page from '../../components/page';
 
 function Favorites(): JSX.Element {
   return (
-    <div className="page">
-      <Header isAuthorizedUser />
+    <Page className="page" title="6 cities: favorites" isAuthorizedUser>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -178,7 +179,7 @@ function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRouter.Main}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -186,9 +187,9 @@ function Favorites(): JSX.Element {
             width={64}
             height={33}
           />
-        </a>
+        </Link>
       </footer>
-    </div>
+    </Page>
   );
 }
 

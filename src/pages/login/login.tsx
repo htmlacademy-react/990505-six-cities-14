@@ -1,10 +1,9 @@
 import {JSX} from 'react';
-import Header from '../../components/app/header/header';
+import Page from '../../components/page';
 
 function Login(): JSX.Element {
   return (
-    <div className="page page--gray page--login">
-      <Header isAuthorizedUser={false} />
+    <Page className="page page--gray page--login" title="6 cities: authorization" isAuthorizedUser={false}>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -44,7 +43,7 @@ function Login(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </Page>
   );
 }
 

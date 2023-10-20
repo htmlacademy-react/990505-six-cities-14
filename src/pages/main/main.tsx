@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import PlaceCard from '../../components/place-card/place-card';
-import Header from '../../components/app/header/header';
+import Page from '../../components/page';
 
 type MainProps = {
   offerCount: number;
@@ -8,8 +8,7 @@ type MainProps = {
 
 function Main({offerCount}: MainProps): JSX.Element {
   return (
-    <div className="page page--gray page--main">
-      <Header isAuthorizedUser />
+    <Page className="page page--gray page--main" title="6 cities" isAuthorizedUser>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -80,7 +79,7 @@ function Main({offerCount}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
+                <PlaceCard className='cities__card' />
                 <PlaceCard className='cities__card' />
                 <PlaceCard className='cities__card' />
                 <PlaceCard className='cities__card' />
@@ -93,7 +92,7 @@ function Main({offerCount}: MainProps): JSX.Element {
           </div>
         </div>
       </main>
-    </div>
+    </Page>
   );
 }
 

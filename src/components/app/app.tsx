@@ -4,23 +4,25 @@ import {AppRouter} from '../../const';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import PrivateRoute from './private-route';
+import {OfferType} from '../../types/offers';
 
 type AppProps = {
   offerCount: number;
+  offers: OfferType[];
 }
 
-function App({offerCount}: AppProps): JSX.Element {
+function App({offerCount, offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRouter.Main}
-            element={<Main offerCount={offerCount} />}
+            element={<Main offerCount={offerCount} offers={offers}/>}
           />
           <Route
             path={AppRouter.Offer}
-            element={<Offer />}
+            element={<Offer offers={offers}/>}
           />
           <Route
             path={AppRouter.Favorites}

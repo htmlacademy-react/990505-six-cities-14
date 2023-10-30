@@ -13,7 +13,8 @@ function Reviews({ reviews }: OfferProps): JSX.Element {
       </h2>
       <ul className="reviews__list">
         {reviews.map((item)=> {
-          const {avatarUrl, name, comment} = item.user;
+          const {avatarUrl, name} = item.user;
+          const {comment, date} = item;
           return (
             <li className="reviews__item" key={avatarUrl}>
               <div className="reviews__user user">
@@ -38,8 +39,8 @@ function Reviews({ reviews }: OfferProps): JSX.Element {
                 <p className="reviews__text">
                   {comment}
                 </p>
-                <time className="reviews__time" dateTime="2019-04-24">
-                  April 2019
+                <time className="reviews__time" dateTime={date}>
+                  {date}
                 </time>
               </div>
             </li>

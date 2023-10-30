@@ -6,6 +6,7 @@ import {OfferType} from '../../types/offers';
 import {reviews} from '../../mocks/review';
 import Reviews from '../../components/app/reviews';
 import PlaceCard from '../../components/places-cards/place-card';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 type OfferProps = {
   offers: OfferType[];
@@ -14,9 +15,12 @@ type OfferProps = {
 function Offer({ offers }: OfferProps): JSX.Element {
   const { offerId } = useParams();
   const currentOffer = offers.find((item) => item.id === Number(offerId));
-  const {images, goods, isPremium, rating, type, bedrooms, maxAdults, price, description, title, host}: OfferType = currentOffer;
+
   const nearOffers = useMemo<OfferType[]>(() => {
     const nearPlace: OfferType[] = [];
+    if (!currentOffer) {
+      return nearPlace;
+    }
     offers.filter((item)=> {
       if (item.city.name === currentOffer.city.name && nearPlace.length < 3) {
         nearPlace.push(item);
@@ -24,6 +28,15 @@ function Offer({ offers }: OfferProps): JSX.Element {
     });
     return nearPlace;
   }, [offers, currentOffer]);
+
+  if (!currentOffer) {
+    return (
+      <NotFoundPage />
+    );
+  }
+
+  const {images, goods, isPremium, rating, type, bedrooms, maxAdults, price, description, title, host}: OfferType = currentOffer;
+
   return (
     <Page className="page" title="6 cities: offer" isAuthorizedUser={AuthorizationStatus.Auth}>
       <main className="page__main page__main--offer">

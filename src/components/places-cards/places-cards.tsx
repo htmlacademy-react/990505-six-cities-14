@@ -11,7 +11,7 @@ type PlacesCardsProps = {
 }
 
 function PlacesCards({offers}: PlacesCardsProps): JSX.Element {
-  const [hoveredOfferId, setHoveredOfferId] = useState<
+  const [, setHoveredOfferId] = useState<
     OffersPreviewType['id'] | null
   >(null);
 
@@ -38,7 +38,7 @@ function PlacesCards({offers}: PlacesCardsProps): JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <CitiesMap offerId={hoveredOfferId}/>
+          <CitiesMap />
         </div>
       </div>
     </div>

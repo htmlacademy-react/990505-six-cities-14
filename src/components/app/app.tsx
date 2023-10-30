@@ -28,7 +28,7 @@ function App({offers}: AppProps): JSX.Element {
             path={AppRouter.Favorites}
             element={
               <PrivateRoute
-                restrictedFor={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.NoAuth}
                 redirectTo={AppRouter.Login}
               >
                 <Favorites offers={offers}/>
@@ -39,7 +39,7 @@ function App({offers}: AppProps): JSX.Element {
             path={AppRouter.Login}
             element={
               <PrivateRoute
-                restrictedFor={AuthorizationStatus.Auth}
+                authorizationStatus={AuthorizationStatus.Auth}
                 redirectTo={AppRouter.Main}
               >
                 <Login />

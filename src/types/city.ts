@@ -1,4 +1,4 @@
-import {LocationType} from 'history';
+import {LocationType} from './location';
 
 export type CityType = {
   location: LocationType;

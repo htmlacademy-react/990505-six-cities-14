@@ -11,7 +11,7 @@ export const reviews: ReviewType[] = [
     },
     'rating': 2,
     'comment': 'The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.',
-    'date': '2023-09-30T09:23:20.316Z'
+    'date': '2022-09-30T09:23:20.316Z'
   },
   {
     'id': 3,
@@ -23,7 +23,7 @@ export const reviews: ReviewType[] = [
     },
     'rating': 4,
     'comment': 'The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.',
-    'date': '2023-09-30T09:23:20.316Z'
+    'date': '2021-09-30T09:23:20.316Z'
   },
   {
     'id': 3,
@@ -35,7 +35,7 @@ export const reviews: ReviewType[] = [
     },
     'rating': 3,
     'comment': 'The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.',
-    'date': '2023-09-30T09:23:20.316Z'
+    'date': '2000-09-30T09:23:20.316Z'
   },
   {
     'id': 2,

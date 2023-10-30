@@ -1,5 +1,6 @@
 import {ReviewType} from '../../types/review';
 import {JSX} from 'react';
+import moment from 'moment';
 
 type OfferProps = {
   reviews: ReviewType[];
@@ -39,8 +40,8 @@ function Reviews({ reviews }: OfferProps): JSX.Element {
                 <p className="reviews__text">
                   {comment}
                 </p>
-                <time className="reviews__time" dateTime={date}>
-                  {date}
+                <time className="reviews__time" dateTime={moment(date).format('YYYY-MM-DD')}>
+                  {moment(date).format('MMMM YYYY')}
                 </time>
               </div>
             </li>

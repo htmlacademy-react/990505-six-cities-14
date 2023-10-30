@@ -1,4 +1,4 @@
-export type RewiewType = {
+export type ReviewType = {
   comment: string;
   date: string;
   id: number;
@@ -10,4 +10,3 @@ export type RewiewType = {
     name: string;
   };
 };
-

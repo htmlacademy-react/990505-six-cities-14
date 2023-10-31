@@ -1,4 +1,3 @@
-import {JSX} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
 import {OffersPreviewType} from '../../types/offers-preview';
@@ -17,7 +16,7 @@ const sizeMap: Record<CardsImageSize,{ width: string; height: string }> = {
   large: { width: '260', height: '200' },
 };
 
-function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps): JSX.Element {
+function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps) {
   const { id, price, isPremium, rating, title, type, previewImage, isFavorite} = offer;
   const offerRatingInPercentage = String(Math.round(rating) / 5 * 100);
 

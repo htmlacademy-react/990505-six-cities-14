@@ -10,7 +10,7 @@ type PageProps = {
   isAuthorizedUser: AuthorizationStatus;
 }
 
-function Page({title, children, className, isAuthorizedUser}: PageProps): JSX.Element {
+function Page({title, children, className, isAuthorizedUser}: PageProps) {
   return (
     <div className={className}>
       <Helmet>

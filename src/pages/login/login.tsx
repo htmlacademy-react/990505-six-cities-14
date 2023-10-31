@@ -1,8 +1,7 @@
-import {JSX} from 'react';
 import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
 
-function Login(): JSX.Element {
+function Login() {
   return (
     <Page className="page page--gray page--login" title="6 cities: authorization" isAuthorizedUser={AuthorizationStatus.Auth}>
       <main className="page__main page__main--login">

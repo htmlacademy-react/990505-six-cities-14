@@ -1,4 +1,3 @@
-import {JSX} from 'react';
 import UserStatusBar from './user-status-bar';
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../../const';
@@ -8,7 +7,7 @@ type HeaderProps = {
   isAuthorizedUser: boolean;
 }
 
-function Header({isAuthorizedUser}: HeaderProps): JSX.Element {
+function Header({isAuthorizedUser}: HeaderProps) {
   return (
     <header className="header">
       <Container >

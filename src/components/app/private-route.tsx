@@ -8,7 +8,7 @@ type PrivateRouteProps = {
   redirectTo: string;
 };
 
-function PrivateRoute({authorizationStatus = AuthorizationStatus.Auth, children, redirectTo}: PrivateRouteProps): JSX.Element {
+function PrivateRoute({authorizationStatus = AuthorizationStatus.Auth, children, redirectTo}: PrivateRouteProps) {
   return authorizationStatus === AuthorizationStatus.Auth
     ? children
     : <Navigate to={redirectTo} />;

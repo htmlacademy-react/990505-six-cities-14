@@ -1,5 +1,5 @@
 import {OfferType} from '../../types/offers';
-import {JSX, useState} from 'react';
+import {useState} from 'react';
 import PlaceCard from './place-card';
 import SortingForm from '../../pages/main/sorting-form';
 import {SortLocations} from '../../const';
@@ -10,7 +10,7 @@ type PlacesCardsProps = {
   offers: OfferType[];
 }
 
-function PlacesCards({offers}: PlacesCardsProps): JSX.Element {
+function PlacesCards({offers}: PlacesCardsProps) {
   const [, setHoveredOfferId] = useState<
     OffersPreviewType['id'] | null
   >(null);

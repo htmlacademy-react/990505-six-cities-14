@@ -1,6 +1,4 @@
-import {JSX} from 'react';
-
-function UserStatusBar(): JSX.Element {
+function UserStatusBar() {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">

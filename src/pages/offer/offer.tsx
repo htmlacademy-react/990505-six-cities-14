@@ -1,4 +1,4 @@
-import {JSX, useMemo} from 'react';
+import {useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
@@ -12,7 +12,7 @@ type OfferProps = {
   offers: OfferType[];
 }
 
-function Offer({ offers }: OfferProps): JSX.Element {
+function Offer({ offers }: OfferProps) {
   const { offerId } = useParams();
   const currentOffer = offers.find((item) => item.id === Number(offerId));
 

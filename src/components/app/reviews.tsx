@@ -1,12 +1,11 @@
 import {ReviewType} from '../../types/review';
-import {JSX} from 'react';
 import moment from 'moment';
 
 type OfferProps = {
   reviews: ReviewType[];
 }
 
-function Reviews({ reviews }: OfferProps): JSX.Element {
+function Reviews({ reviews }: OfferProps) {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">

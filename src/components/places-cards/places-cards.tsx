@@ -5,6 +5,7 @@ import SortingForm from '../../pages/main/sorting-form';
 import {SortLocations} from '../../const';
 import {OffersPreviewType} from '../../types/offers-preview';
 import CitiesMap from '../app/citiesMap';
+import {addPluralEnding} from '../../utils';
 
 type PlacesCardsProps = {
   offers: OfferType[];
@@ -24,7 +25,7 @@ function PlacesCards({offers}: PlacesCardsProps) {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} place{offers.length > 1 && 's'} to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in Amsterdam</b>
           <SortingForm sortLocations={SortLocations}/>
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (

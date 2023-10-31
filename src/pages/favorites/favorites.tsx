@@ -16,9 +16,7 @@ function Favorites({ offers }: FavoritesProps) {
       if (!item.isFavorite) {
         return;
       }
-      if (sortedOffers[item.city.name] === undefined) {
-        sortedOffers[item.city.name] = [];
-      }
+      sortedOffers[item.city.name] = sortedOffers[item.city.name] || [];
       sortedOffers[item.city.name].push(item);
     });
     return {

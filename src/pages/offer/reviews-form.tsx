@@ -1,9 +1,11 @@
-import {Fragment, useState, ChangeEvent} from 'react';
+import {useState, ChangeEvent} from 'react';
 import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
+import Rating from './rating';
 
 function ReviewsForm() {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
+
   const isValid = comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
     rating !== '';
@@ -12,9 +14,6 @@ function ReviewsForm() {
     setComment(evt.target.value);
   }
 
-  function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
-    setRating(evt.target.value);
-  }
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
@@ -24,26 +23,8 @@ function ReviewsForm() {
         {Object.entries(ratingMap)
           .reverse()
           .map(([score, title]) => (
-            <Fragment key={score}>
-              <input
-                className="form__rating-input visually-hidden"
-                name="rating"
-                value={score}
-                id={`${score}-stars`}
-                type="radio"
-                checked={rating === score}
-                onChange={handleInputChange}
-              />
-              <label
-                htmlFor={`${score}-stars`}
-                className="reviews__rating-label form__rating-label"
-                title={title}
-              >
-                <svg className="form__star-image" width={37} height={33}>
-                  <use xlinkHref="#icon-star"/>
-                </svg>
-              </label>
-            </Fragment>))}
+            <Rating key={score} score={score} title={title} rating={rating} setRating={setRating} />
+          ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
@@ -73,3 +54,4 @@ function ReviewsForm() {
 }
 
 export default ReviewsForm;
+

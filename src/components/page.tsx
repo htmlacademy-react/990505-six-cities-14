@@ -1,11 +1,11 @@
-import {JSX} from 'react';
+import {ReactNode} from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from './app/header/header';
 import {AuthorizationStatus} from '../const';
 
 type PageProps = {
   title: string;
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode | ReactNode[];
   className: string;
   isAuthorizedUser: AuthorizationStatus;
 }

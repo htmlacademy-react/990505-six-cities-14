@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
 import {OffersPreviewType} from '../../types/offers-preview';
+import {capitalize} from '../../utils';
 
 type CardsImageSize = 'small' | 'large'
 
@@ -67,7 +68,7 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
         <h2 className="place-card__name">
           <Link to={`${AppRouter.Offer}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{`${type[0].toUpperCase()}${type.slice(1)}`}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

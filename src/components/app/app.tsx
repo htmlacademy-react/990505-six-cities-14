@@ -4,7 +4,6 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import PrivateRoute from './private-route';
 import {OfferType} from '../../types/offers';
-import {AuthorizationStatus} from '../../const';
 
 type AppProps = {
   offers: OfferType[];

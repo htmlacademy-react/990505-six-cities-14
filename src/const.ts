@@ -24,10 +24,10 @@ export const MAX_COMMENT_LENGTH = 300;
 export const MIN_COMMENT_LENGTH = 50;
 
 export const ratingMap = {
-  '5': 'perfect',
-  '4': 'good',
-  '3': 'not bad',
-  '2': 'badly',
-  '1': 'terribly',
+  5: 'perfect',
+  4: 'good',
+  3: 'not bad',
+  2: 'badly',
+  1: 'terribly',
 };
 

@@ -7,6 +7,8 @@ import {reviews} from '../../mocks/review';
 import Reviews from '../../components/app/reviews';
 import PlaceCard from '../../components/places-cards/place-card';
 import NotFoundPage from '../not-found-page/not-found-page';
+import ReviewsForm from './reviews-form';
+import {addPluralEnding} from '../../utils';
 
 type OfferProps = {
   offers: OfferType[];
@@ -17,12 +19,12 @@ function Offer({ offers }: OfferProps) {
   const currentOffer = offers.find((item) => item.id === Number(offerId));
 
   const nearOffers = useMemo<OfferType[]>(() => {
-    const nearPlace: OfferType[] = [];
     if (!currentOffer) {
-      return nearPlace;
+      return [];
     }
-    offers.filter((item)=> {
-      if (item.city.name === currentOffer.city.name && nearPlace.length < 3) {
+    const nearPlace: OfferType[] = [];
+    offers.forEach((item) => {
+      if (nearPlace.length < 3 && item.city.name === currentOffer.city.name) {
         nearPlace.push(item);
       }
     });
@@ -78,10 +80,10 @@ function Offer({ offers }: OfferProps) {
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{type}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
+                  {bedrooms} Bedroom{addPluralEnding(bedrooms)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
+                  Max {maxAdults} maxAdult{addPluralEnding(maxAdults)}
                 </li>
               </ul>
               <div className="offer__price">
@@ -117,6 +119,7 @@ function Offer({ offers }: OfferProps) {
                 </div>
               </div>
               <Reviews reviews={reviews}/>
+              <ReviewsForm />
             </div>
           </div>
           <section className="offer__map map" />

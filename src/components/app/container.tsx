@@ -1,10 +1,10 @@
-import {JSX} from 'react';
+import {ReactNode} from 'react';
 
 type ContainerProps = {
-  children: JSX.Element;
+  children: ReactNode | ReactNode[];
 }
 
-function Container({children}: ContainerProps): JSX.Element {
+function Container({children}: ContainerProps) {
   return (
     <div className="container">
       {children}

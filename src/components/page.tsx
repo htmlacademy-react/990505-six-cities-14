@@ -1,21 +1,22 @@
-import {JSX} from 'react';
+import {ReactNode} from 'react';
 import {Helmet} from 'react-helmet-async';
 import Header from './app/header/header';
+import {AuthorizationStatus} from '../const';
 
 type PageProps = {
   title: string;
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode | ReactNode[];
   className: string;
-  isAuthorizedUser: boolean;
+  isAuthorizedUser: AuthorizationStatus;
 }
 
-function Page({title, children, className, isAuthorizedUser}: PageProps): JSX.Element {
+function Page({title, children, className, isAuthorizedUser}: PageProps) {
   return (
     <div className={className}>
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <Header isAuthorizedUser={isAuthorizedUser} />
+      <Header isAuthorizedUser={isAuthorizedUser === AuthorizationStatus.Auth} />
       {children}
     </div>
   );

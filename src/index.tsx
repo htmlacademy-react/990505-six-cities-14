@@ -1,6 +1,7 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './components/app/app';
+import {offers} from './mocks/offers';
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -8,6 +9,6 @@ const root = createRoot(
 
 root.render(
   <StrictMode>
-    <App offerCount={312}/>
+    <App offers={offers}/>
   </StrictMode>
 );

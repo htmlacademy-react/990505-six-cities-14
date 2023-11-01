@@ -30,4 +30,3 @@ export const ratingMap = {
   2: 'badly',
   1: 'terribly',
 };
-

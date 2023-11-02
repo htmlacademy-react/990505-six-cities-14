@@ -1,15 +1,15 @@
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
-import {OffersPreviewType} from '../../types/offers-preview';
+import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
 
 type CardsImageSize = 'small' | 'large'
 
 type PlaceCardProps = {
-  offer: OffersPreviewType;
+  offer: OfferPreviewType;
   block: 'favorites' | 'cities' | 'near-places';
   size?: CardsImageSize;
-  onCardHover?: (offerId: OffersPreviewType['id'] | null) => void;
+  onCardHover?: (offerId: OfferPreviewType['id'] | null) => void;
 }
 
 const sizeMap: Record<CardsImageSize,{ width: string; height: string }> = {

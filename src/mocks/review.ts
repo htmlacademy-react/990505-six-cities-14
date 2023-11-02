@@ -14,7 +14,7 @@ export const reviews: ReviewType[] = [
     date: '2022-09-30T09:23:20.316Z'
   },
   {
-    id: 3,
+    id: 2,
     user: {
       id: 15,
       isPro: false,
@@ -38,7 +38,7 @@ export const reviews: ReviewType[] = [
     date: '2000-09-30T09:23:20.316Z'
   },
   {
-    id: 2,
+    id: 4,
     user: {
       id: 15,
       isPro: false,

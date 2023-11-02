@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
 import {OffersPreviewType} from '../../types/offers-preview';
-import {capitalize} from '../../utils';
+import {capitalize, offerRatingInPercentage} from '../../utils';
 
 type CardsImageSize = 'small' | 'large'
 
@@ -19,7 +19,6 @@ const sizeMap: Record<CardsImageSize,{ width: string; height: string }> = {
 
 function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps) {
   const { id, price, isPremium, rating, title, type, previewImage, isFavorite} = offer;
-  const offerRatingInPercentage = String(Math.round(rating) / 5 * 100);
 
   function handleMouseEnter() {
     onCardHover?.(id);
@@ -61,7 +60,7 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offerRatingInPercentage}%` }} />
+            <span style={{ width: `${offerRatingInPercentage(rating)}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -20,7 +20,7 @@ function Offer({ offers }: OfferProps) {
   const { offerId } = useParams();
   const currentOffer = offers.find((item) => item.id === Number(offerId));
 
-  const currentCity = currentOffer.city || {} as CityType;
+  const currentCity = currentOffer?.city || {} as CityType;
 
   const nearOffers = useMemo<OfferType[]>(() => {
     if (!currentOffer) {

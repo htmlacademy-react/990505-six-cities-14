@@ -8,7 +8,7 @@ import {OfferPreviewType} from '../../types/offers-preview';
 type CitiesMapProps = {
   offers: OfferPreviewType[];
   city: CityType;
-  selectedOffer: OfferPreviewType | null;
+  selectedOffer?: OfferPreviewType | null;
   mapBlock: string;
 }
 

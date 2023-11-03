@@ -5,12 +5,12 @@ import {AuthorizationStatus} from '../../const';
 import {OfferType} from '../../types/offers';
 import {reviews} from '../../mocks/review';
 import Reviews from '../../components/app/reviews';
-import PlaceCard from '../../components/places-cards/place-card';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsForm from './reviews-form';
 import {addPluralEnding} from '../../utils';
 import CitiesMap from '../../components/app/citiesMap';
 import {CityType} from '../../types/city';
+import PlacesCards from '../../components/places-cards/places-cards';
 
 type OfferProps = {
   offers: OfferType[];
@@ -131,10 +131,7 @@ function Offer({ offers }: OfferProps) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) => (
-                <PlaceCard key={nearOffer.id} offer={nearOffer} block='near-places' size='large'/>))}
-            </div>
+            <PlacesCards offers={nearOffers} block={'near-places'} size={'large'} />
           </section>
 
         </div>

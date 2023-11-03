@@ -9,6 +9,7 @@ type CitiesMapProps = {
   offers: OfferPreviewType[];
   city: CityType;
   selectedOffer: OfferPreviewType | null;
+  mapBlock: string;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
 });
 
 
-function CitiesMap({offers, city, selectedOffer}: CitiesMapProps) {
+function CitiesMap({offers, city, selectedOffer, mapBlock}: CitiesMapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -51,7 +52,7 @@ function CitiesMap({offers, city, selectedOffer}: CitiesMapProps) {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={`${mapBlock}__map map`} ref={mapRef}/>
   );
 }
 

@@ -45,7 +45,7 @@ function PlacesCards({offers}: PlacesCardsProps) {
           </div>
         </section>
         <div className="cities__right-section">
-          <CitiesMap offers={sortedOffers} city={currentCity} selectedOffer={selectedOffer}/>
+          <CitiesMap offers={sortedOffers} city={currentCity} selectedOffer={selectedOffer} mapBlock={'cities'}/>
         </div>
       </div>
     </div>

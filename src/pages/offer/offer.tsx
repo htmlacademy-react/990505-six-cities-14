@@ -9,6 +9,8 @@ import PlaceCard from '../../components/places-cards/place-card';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsForm from './reviews-form';
 import {addPluralEnding} from '../../utils';
+import CitiesMap from '../../components/app/citiesMap';
+import {CityType} from '../../types/city';
 
 type OfferProps = {
   offers: OfferType[];
@@ -17,6 +19,8 @@ type OfferProps = {
 function Offer({ offers }: OfferProps) {
   const { offerId } = useParams();
   const currentOffer = offers.find((item) => item.id === Number(offerId));
+
+  const currentCity = currentOffer.city || {} as CityType;
 
   const nearOffers = useMemo<OfferType[]>(() => {
     if (!currentOffer) {
@@ -122,7 +126,7 @@ function Offer({ offers }: OfferProps) {
               <ReviewsForm />
             </div>
           </div>
-          <section className="offer__map map" />
+          <CitiesMap offers={nearOffers} city={currentCity} mapBlock={'offer'}/>
         </section>
         <div className="container">
           <section className="near-places places">

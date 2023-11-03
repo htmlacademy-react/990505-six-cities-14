@@ -1,7 +1,7 @@
 import {LocationType} from './location';
 import {CityType} from './city';
 
-export type OffersPreviewType = {
+export type OfferPreviewType = {
   city: CityType;
   id: number;
   isFavorite: boolean;

@@ -1,7 +1,7 @@
 import {HostType} from './host';
-import {OffersPreviewType} from './offers-preview';
+import {OfferPreviewType} from './offers-preview';
 
-export type OfferType = OffersPreviewType & {
+export type OfferType = OfferPreviewType & {
   bedrooms: number;
   description: string;
   goods: string[];

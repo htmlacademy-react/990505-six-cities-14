@@ -2,7 +2,7 @@ import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
 import {OfferType} from '../../types/offers';
 import LocationsList from './locationsLlist';
-import PlacesCards from '../../components/places-cards/places-cards';
+import Cities from './cities';
 
 type MainProps = {
   offers: OfferType[];
@@ -19,7 +19,7 @@ function Main({ offers }: MainProps) {
             <LocationsList locations={locations}></LocationsList>
           </section>
         </div>
-        <PlacesCards offers={offers}/>
+        <Cities offers={offers}/>
       </main>
     </Page>
   );

@@ -2,8 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
-
-type CardsImageSize = 'small' | 'large'
+import {CardsImageSize} from '../../types/image';
 
 type PlaceCardProps = {
   offer: OfferPreviewType;

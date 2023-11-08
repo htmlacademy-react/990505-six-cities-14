@@ -1,3 +1,4 @@
+import LocationsList from "./pages/main/locationsLlist";
 
 export enum AppRouter {
   Main = '/',
@@ -11,6 +12,15 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const Locations = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
 
 export const SortLocations = [
   'Popular',

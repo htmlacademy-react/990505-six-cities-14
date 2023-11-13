@@ -10,7 +10,7 @@ import {
 } from './action';
 import {initialStateType} from '../types/initial-state';
 import {AuthorizationStatus, DEFAULT_CITY} from '../const';
-import {OfferPreviewType} from "../types/offers-preview";
+import {OfferPreviewType} from '../types/offers-preview';
 
 const initialState: initialStateType = {
   selectedCity: DEFAULT_CITY,

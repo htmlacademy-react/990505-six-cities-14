@@ -1,24 +1,23 @@
 import Page from '../../components/page';
 import {AuthorizationStatus, Locations} from '../../const';
-import {OfferType} from '../../types/offers';
 import LocationsList from './locationsLlist';
 import Cities from './cities';
+import {useAppSelector} from '../../store/hooks';
 
-type MainProps = {
-  offers: OfferType[];
-}
+function Main() {
+  const selectedCityName = useAppSelector((state) => state.selectedCity);
+  //const offers = useAppSelector((state) => state.offers);
 
-function Main({ offers }: MainProps) {
   return (
     <Page className="page page--gray page--main" title="6 cities" isAuthorizedUser={AuthorizationStatus.Auth}>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList locations={Locations}></LocationsList>
+            <LocationsList locations={Locations} selectedCityName={selectedCityName}></LocationsList>
           </section>
         </div>
-        <Cities offers={offers}/>
+        <Cities />
       </main>
     </Page>
   );

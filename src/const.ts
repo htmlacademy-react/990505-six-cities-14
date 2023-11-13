@@ -1,5 +1,3 @@
-import LocationsList from "./pages/main/locationsLlist";
-
 export enum AppRouter {
   Main = '/',
   Login = '/login',
@@ -21,6 +19,8 @@ export const Locations = [
   'Hamburg',
   'Dusseldorf'
 ];
+
+export const DEFAULT_CITY = 'Paris';
 
 export const SortLocations = [
   'Popular',

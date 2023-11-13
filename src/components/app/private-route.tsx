@@ -3,13 +3,12 @@ import {AuthorizationStatus} from '../../const';
 import {ReactNode} from 'react';
 
 type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
   children: ReactNode | ReactNode[];
   redirectTo: string;
 };
 
-function PrivateRoute({authorizationStatus = AuthorizationStatus.Auth, children, redirectTo}: PrivateRouteProps) {
-  return children;
+function PrivateRoute({children, redirectTo}: PrivateRouteProps) {
+  const authorizationStatus = AuthorizationStatus.Auth;
   return authorizationStatus === AuthorizationStatus.Auth
     ? children
     : <Navigate to={redirectTo} />;

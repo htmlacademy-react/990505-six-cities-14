@@ -1,35 +1,29 @@
 import {Main, Favorites, Login, Offer, NotFoundPage} from '../../pages';
-import {AppRouter, AuthorizationStatus} from '../../const';
+import {AppRouter} from '../../const';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import PrivateRoute from './private-route';
-import {OfferType} from '../../types/offers';
 
-type AppProps = {
-  offers: OfferType[];
-}
-
-function App({offers}: AppProps) {
+function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRouter.Main}
-            element={<Main offers={offers}/>}
+            element={<Main />}
           />
           <Route
             path={`${AppRouter.Offer}/:offerId`}
-            element={<Offer offers={offers}/>}
+            element={<Offer />}
           />
           <Route
             path={AppRouter.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
                 redirectTo={AppRouter.Login}
               >
-                <Favorites offers={offers}/>
+                <Favorites />
               </PrivateRoute>
             }
           />
@@ -37,7 +31,6 @@ function App({offers}: AppProps) {
             path={AppRouter.Login}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
                 redirectTo={AppRouter.Main}
               >
                 <Login />

@@ -22,12 +22,12 @@ export const Locations = [
 
 export const DEFAULT_CITY = 'Paris';
 
-export const SortLocations = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first'
-];
+export enum SortingParameters {
+  Default = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  Top = 'Top rated first'
+}
 
 export const MAX_COMMENT_LENGTH = 300;
 

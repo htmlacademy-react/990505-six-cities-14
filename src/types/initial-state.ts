@@ -1,12 +1,12 @@
-import {AuthorizationStatus} from '../const';
+import {AuthorizationStatus, SortingParameters} from '../const';
 import {OfferPreviewType} from './offers-preview';
 import {ReviewType} from './review';
 import {OfferType} from './offers';
 
-
 export type initialStateType = {
   selectedCity: string;
   offers: OfferPreviewType[];
+  sortingParameter: SortingParameters;
   sortedOffers: OfferPreviewType[];
   currentOffer: OfferType | null;
   nearPlaces: OfferPreviewType[];

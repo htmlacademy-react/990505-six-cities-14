@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import SortingForm from './sorting-form';
-import {SortLocations} from '../../const';
 import {OfferPreviewType} from '../../types/offers-preview';
 import CitiesMap from '../../components/app/citiesMap';
 import {addPluralEnding} from '../../utils';
@@ -28,7 +27,7 @@ function Cities() {
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{sortedOffers.length} place{addPluralEnding(sortedOffers.length)} to stay in {selectedCityName}</b>
-          <SortingForm sortLocations={SortLocations}/>
+          <SortingForm />
           <PlacesCards offers={sortedOffers} onCardHover={handleCardHover} size={'large'} block={'cities'}/>
         </section>
         <div className="cities__right-section">

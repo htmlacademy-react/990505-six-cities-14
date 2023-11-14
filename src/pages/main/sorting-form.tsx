@@ -8,6 +8,7 @@ import {
 } from '../../store/hooks';
 import {SortingParameters} from '../../const';
 import {fetchSortedOffers, setSortingParameter} from '../../store/action';
+import {useState} from 'react';
 
 function SortingForm() {
   let sortedOffers = useAppSelector(selectSortedOffers);
@@ -34,20 +35,30 @@ function SortingForm() {
     dispatch(fetchSortedOffers(sortedOffers));
   };
 
+  const [isOpened, setIsOpened] = useState(false);
+  function handleClick() {
+    setIsOpened((prevIsOpened) => !prevIsOpened);
+  }
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0}>
+      <span className="places__sorting-type" tabIndex={0} onClick={handleClick}>
         {sortingParameter}
         <svg className="places__sorting-arrow" width={7} height={4}><use xlinkHref="#icon-arrow-select" /></svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul className={`places__options places__options--custom ${isOpened && 'places__options--opened'}`}>
         {Object.values(SortingParameters).map((item) => (
           <li
             className={`places__option ${sortingParameter === item && 'places__option--active'}`}
             tabIndex={0}
             key={item}
-            onClick={() => sortByParameter(item as SortingParameters)}
+            onClick={
+              () => {
+                sortByParameter(item as SortingParameters);
+                handleClick();
+              }
+            }
           >
             {item}
           </li>))}

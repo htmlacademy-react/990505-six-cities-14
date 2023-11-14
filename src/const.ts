@@ -20,7 +20,7 @@ export const Locations = [
   'Dusseldorf'
 ];
 
-export const DEFAULT_CITY = 'Paris';
+export const DEFAULT_CITY = Locations[0];
 
 export enum SortingParameters {
   Default = 'Popular',

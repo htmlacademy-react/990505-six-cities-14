@@ -1,12 +1,19 @@
-import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {
+  selectCity,
+  selectOffers,
+  selectSortedOffers,
+  selectSortingParameter,
+  useAppDispatch,
+  useAppSelector
+} from '../../store/hooks';
 import {SortingParameters} from '../../const';
 import {fetchSortedOffers, setSortingParameter} from '../../store/action';
 
 function SortingForm() {
-  let sortedOffers = useAppSelector((state) => state.sortedOffers);
-  const offers = useAppSelector((state) => state.offers);
-  const selectedCity = useAppSelector((state) => state.selectedCity);
-  const sortingParameter = useAppSelector((state) => state.sortingParameter);
+  let sortedOffers = useAppSelector(selectSortedOffers);
+  const offers = useAppSelector(selectOffers);
+  const selectedCity = useAppSelector(selectCity);
+  const sortingParameter = useAppSelector(selectSortingParameter);
   const dispatch = useAppDispatch();
 
   const sortByParameter = (parameter: SortingParameters) => {

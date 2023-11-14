@@ -4,11 +4,11 @@ import {AppRouter} from '../../const';
 import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
 import PlaceCard from '../../components/places-cards/place-card';
-import {useAppSelector} from '../../store/hooks';
+import {selectFavoriteOffers, useAppSelector} from '../../store/hooks';
 import {OfferPreviewType} from '../../types/offers-preview';
 
 function Favorites() {
-  const favorites = useAppSelector((state) => state.favoriteOffers);
+  const favorites = useAppSelector(selectFavoriteOffers);
   const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[]}>(() => {
     const sortedOffers: Record<string, OfferPreviewType[]> = {};
     favorites.forEach((item) => {

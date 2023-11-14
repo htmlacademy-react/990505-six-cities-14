@@ -5,11 +5,11 @@ import CitiesMap from '../../components/app/citiesMap';
 import {addPluralEnding} from '../../utils';
 import 'leaflet/dist/leaflet.css';
 import PlacesCards from '../../components/places-cards/places-cards';
-import {useAppSelector} from '../../store/hooks';
+import {selectCity, selectSortedOffers, useAppSelector} from '../../store/hooks';
 
 function Cities() {
-  const sortedOffers = useAppSelector((state) => state.sortedOffers);
-  const selectedCityName = useAppSelector((state) => state.selectedCity);
+  const sortedOffers = useAppSelector(selectSortedOffers);
+  const selectedCityName = useAppSelector(selectCity);
 
   const currentCity = sortedOffers[0].city;
   const [selectedOffer, setHoveredOffer] = useState<

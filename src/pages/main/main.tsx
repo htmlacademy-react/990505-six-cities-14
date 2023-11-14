@@ -2,12 +2,10 @@ import Page from '../../components/page';
 import {AuthorizationStatus, Locations} from '../../const';
 import LocationsList from './locationsLlist';
 import Cities from './cities';
-import {useAppSelector} from '../../store/hooks';
+import {selectCity, useAppSelector} from '../../store/hooks';
 
 function Main() {
-  const selectedCityName = useAppSelector((state) => state.selectedCity);
-  //const offers = useAppSelector((state) => state.offers);
-
+  const selectedCityName = useAppSelector(selectCity);
   return (
     <Page className="page page--gray page--main" title="6 cities" isAuthorizedUser={AuthorizationStatus.Auth}>
       <main className="page__main page__main--index">

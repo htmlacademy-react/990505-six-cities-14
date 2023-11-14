@@ -10,7 +10,7 @@ import {addPluralEnding} from '../../utils';
 import CitiesMap from '../../components/app/citiesMap';
 import PlacesCards from '../../components/places-cards/places-cards';
 import {offer} from '../../mocks/offer';
-import {useAppSelector} from '../../store/hooks';
+import {selectOffers, useAppSelector} from '../../store/hooks';
 import {CityType} from '../../types/city';
 import {OfferPreviewType} from '../../types/offers-preview';
 
@@ -18,13 +18,13 @@ import {OfferPreviewType} from '../../types/offers-preview';
 function Offer() {
   //const { offerId } = useParams(); TODO подключить запрос оффера по id
   const currentOffer: OfferType = offer;
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(selectOffers);
   const { currentCity, nearOffers } = useMemo<{ currentCity: CityType; nearOffers: OfferPreviewType[] }>(() => ({
     currentCity: currentOffer.city,
     nearOffers: offers.filter((item) => (item.id !== currentOffer.id && item.city.name === currentOffer.city.name)).slice(0, 3)
   }), [currentOffer, offers]);
 
-  if (currentOffer === null) {
+  if (!currentOffer) {
     return (
       <NotFoundPage />
     );

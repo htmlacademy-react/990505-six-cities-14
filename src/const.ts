@@ -1,4 +1,3 @@
-
 export enum AppRouter {
   Main = '/',
   Login = '/login',
@@ -12,12 +11,23 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const SortLocations = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first'
+export const Locations = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
 ];
+
+export const DEFAULT_CITY = Locations[0];
+
+export enum SortingParameters {
+  Default = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  Top = 'Top rated first'
+}
 
 export const MAX_COMMENT_LENGTH = 300;
 

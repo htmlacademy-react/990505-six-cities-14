@@ -3,19 +3,15 @@ import {Link} from 'react-router-dom';
 import {AppRouter} from '../../const';
 import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
-import {OfferType} from '../../types/offers';
 import PlaceCard from '../../components/places-cards/place-card';
+import {selectFavoriteOffers, useAppSelector} from '../../store/hooks';
+import {OfferPreviewType} from '../../types/offers-preview';
 
-type FavoritesProps = {
-  offers: OfferType[];
-}
-function Favorites({ offers }: FavoritesProps) {
-  const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferType[]>; favoriteCities: string[]}>(() => {
-    const sortedOffers: Record<string, OfferType[]> = {};
-    offers.forEach((item) => {
-      if (!item.isFavorite) {
-        return;
-      }
+function Favorites() {
+  const favorites = useAppSelector(selectFavoriteOffers);
+  const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[]}>(() => {
+    const sortedOffers: Record<string, OfferPreviewType[]> = {};
+    favorites.forEach((item) => {
       sortedOffers[item.city.name] = sortedOffers[item.city.name] || [];
       sortedOffers[item.city.name].push(item);
     });
@@ -23,7 +19,7 @@ function Favorites({ offers }: FavoritesProps) {
       favoriteOffers: sortedOffers,
       favoriteCities: Object.keys(sortedOffers)
     };
-  }, [offers]);
+  }, [favorites]);
 
   return (
     <Page className="page" title="6 cities: favorites" isAuthorizedUser={AuthorizationStatus.Auth}>

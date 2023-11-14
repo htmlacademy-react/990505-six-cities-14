@@ -1,5 +1,4 @@
 import {useMemo} from 'react';
-import {useParams} from 'react-router-dom';
 import Page from '../../components/page';
 import {AuthorizationStatus} from '../../const';
 import {OfferType} from '../../types/offers';
@@ -9,31 +8,21 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsForm from './reviews-form';
 import {addPluralEnding} from '../../utils';
 import CitiesMap from '../../components/app/citiesMap';
-import {CityType} from '../../types/city';
 import PlacesCards from '../../components/places-cards/places-cards';
+import {offer} from '../../mocks/offer';
+import {selectOffers, useAppSelector} from '../../store/hooks';
+import {CityType} from '../../types/city';
+import {OfferPreviewType} from '../../types/offers-preview';
 
-type OfferProps = {
-  offers: OfferType[];
-}
 
-function Offer({ offers }: OfferProps) {
-  const { offerId } = useParams();
-  const currentOffer = offers.find((item) => item.id === Number(offerId));
-
-  const currentCity = currentOffer?.city || {} as CityType;
-
-  const nearOffers = useMemo<OfferType[]>(() => {
-    if (!currentOffer) {
-      return [];
-    }
-    const nearPlace: OfferType[] = [];
-    offers.forEach((item) => {
-      if (nearPlace.length < 3 && item.city.name === currentOffer.city.name) {
-        nearPlace.push(item);
-      }
-    });
-    return nearPlace;
-  }, [offers, currentOffer]);
+function Offer() {
+  //const { offerId } = useParams(); TODO подключить запрос оффера по id
+  const currentOffer: OfferType = offer;
+  const offers = useAppSelector(selectOffers);
+  const { currentCity, nearOffers } = useMemo<{ currentCity: CityType; nearOffers: OfferPreviewType[] }>(() => ({
+    currentCity: currentOffer.city,
+    nearOffers: offers.filter((item) => (item.id !== currentOffer.id && item.city.name === currentOffer.city.name)).slice(0, 3)
+  }), [currentOffer, offers]);
 
   if (!currentOffer) {
     return (
@@ -42,7 +31,6 @@ function Offer({ offers }: OfferProps) {
   }
 
   const {images, goods, isPremium, rating, type, bedrooms, maxAdults, price, description, title, host}: OfferType = currentOffer;
-
   return (
     <Page className="page" title="6 cities: offer" isAuthorizedUser={AuthorizationStatus.Auth}>
       <main className="page__main page__main--offer">
@@ -126,7 +114,7 @@ function Offer({ offers }: OfferProps) {
               <ReviewsForm />
             </div>
           </div>
-          <CitiesMap offers={nearOffers} city={currentCity} mapBlock={'offer'}/>
+          <CitiesMap offers={nearOffers} currentCity={currentCity} mapBlock={'offer'}/>
         </section>
         <div className="container">
           <section className="near-places places">

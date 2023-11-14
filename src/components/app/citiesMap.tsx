@@ -7,7 +7,7 @@ import {OfferPreviewType} from '../../types/offers-preview';
 
 type CitiesMapProps = {
   offers: OfferPreviewType[];
-  city: CityType;
+  currentCity: CityType;
   selectedOffer?: OfferPreviewType | null;
   mapBlock: string;
 }
@@ -25,9 +25,10 @@ const currentCustomIcon = new Icon({
 });
 
 
-function CitiesMap({offers, city, selectedOffer, mapBlock}: CitiesMapProps) {
+function CitiesMap({offers, currentCity, selectedOffer, mapBlock}: CitiesMapProps) {
+
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, currentCity);
 
   useEffect(() => {
     if (map) {
@@ -44,12 +45,20 @@ function CitiesMap({offers, city, selectedOffer, mapBlock}: CitiesMapProps) {
               : defaultCustomIcon
           )
           .addTo(markerLayer);
+
+        map.flyTo(
+          [
+            currentCity.location.latitude,
+            currentCity.location.longitude,
+          ],
+          currentCity.location.zoom
+        );
       });
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, currentCity]);
 
   return (
     <section className={`${mapBlock}__map map`} ref={mapRef}/>

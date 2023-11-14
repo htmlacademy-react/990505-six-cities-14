@@ -1,14 +1,21 @@
+import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../store/hooks';
+import {setSelectedCity} from '../../store/action';
+
 type LocationsListProps = {
   locations: string[];
+  selectedCityName: string;
 }
-function LocationsList ({locations}: LocationsListProps) {
-  const isActive = true;
-
+function LocationsList ({locations, selectedCityName}: LocationsListProps) {
+  const dispatch = useAppDispatch();
   const listItems = locations.map((location) => (
     <li className="locations__item" key={location} >
-      <a className={`locations__item-link tabs__item ${isActive && 'tabs__item--active'}`} href="#">
+      <Link className={`locations__item-link tabs__item ${location === selectedCityName && 'tabs__item--active'}`}
+        to="#"
+        onClick={() => dispatch(setSelectedCity(location))}
+      >
         <span>{location}</span>
-      </a>
+      </Link>
     </li>)
   );
   return (

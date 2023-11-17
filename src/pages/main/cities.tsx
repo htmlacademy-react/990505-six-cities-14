@@ -8,10 +8,10 @@ import PlacesCards from '../../components/places-cards/places-cards';
 import {selectCity, selectSortedOffers, useAppSelector} from '../../store/hooks';
 
 function Cities() {
-  const sortedOffers = useAppSelector(selectSortedOffers);
-  const selectedCityName = useAppSelector(selectCity);
 
-  const currentCity = sortedOffers[0].city;
+  const selectedCityName = useAppSelector(selectCity);
+  const sortedOffers = useAppSelector(selectSortedOffers);
+  const currentCity = sortedOffers[0]?.city;
   const [selectedOffer, setHoveredOffer] = useState<
     OfferPreviewType | null
   >(null);

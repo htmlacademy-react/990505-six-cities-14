@@ -6,6 +6,7 @@ import {OfferType} from './offers';
 export type initialStateType = {
   selectedCity: string;
   offers: OfferPreviewType[];
+  isOffersDataLoading: boolean;
   sortingParameter: SortingParameters;
   sortedOffers: OfferPreviewType[];
   currentOffer: OfferType | null;

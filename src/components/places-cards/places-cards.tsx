@@ -1,12 +1,12 @@
 import PlaceCard from './place-card';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {OfferType} from '../../types/offers';
-import {CardsImageSize} from '../../types/image';
+import {CardsSizeType} from '../../types/card-size';
 
 type PlacesCardsProps = {
   offers: OfferType[] | OfferPreviewType[];
   block: 'favorites' | 'cities' | 'near-places';
-  size: CardsImageSize;
+  size: CardsSizeType;
   onCardHover?: (offerId: OfferPreviewType['id'] | null) => void;
 }
 function PlacesCards ({offers, size, block, onCardHover}: PlacesCardsProps) {

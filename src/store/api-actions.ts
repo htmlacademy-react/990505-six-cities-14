@@ -12,7 +12,8 @@ import {
   requireAuthorizationStatus,
   setCurrentUserInfo,
   setOffersDataLoadingStatus,
-  loadFavorites, redirectToRoute
+  loadFavorites,
+  redirectToRoute,
 } from './action';
 import {AuthDataType} from '../types/auth-data';
 import {dropToken, saveToken} from '../services/token';
@@ -37,15 +38,18 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, AsyncThunkCon
 );
 
 export const fetchFavoriteOffersAction = createAsyncThunk<void, undefined, AsyncThunkConfigType>(
-  'offers/fetchOffers',
+  'offers/fetchFavoriteOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
     const {data} = await api.get<OfferPreviewType[]>(APIRoute.Favorite);
-    dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadFavorites(data));
   }
 );
-
+//TODO
+export const postFavoriteAction = createAsyncThunk<void, {offerId: OfferType['id']; favoriteStatus: boolean}, AsyncThunkConfigType>(
+  'offer/postReview',
+  async ({offerId, favoriteStatus}, {extra: api}) => {
+    await api.post<OfferType[]>(`${APIRoute.Favorite}/${offerId}/${Number(!favoriteStatus)}`);
+  });
 
 export const fetchOfferAction = createAsyncThunk<void, OfferType['id'], AsyncThunkConfigType>(
   'offer/fetchOffer',
@@ -77,7 +81,6 @@ export const postReviewAction = createAsyncThunk<void, {offerId: OfferType['id']
     const {data} = await api.post<ReviewType>(`${APIRoute.Reviews}/${offerId}`, reviewData);
     dispatch(addReview(data));
   });
-//TODO data return
 
 export const fetchFavoritesAction = createAsyncThunk<void, OfferPreviewType[], AsyncThunkConfigType>(
   'offer/fetchFavorites',
@@ -105,7 +108,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 );
 
 
-/** @todo asdasd */
 export const loginAction = createAsyncThunk<void, AuthDataType, {
   dispatch: AppDispatchType;
   state: StateType;

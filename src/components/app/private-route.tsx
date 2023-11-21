@@ -10,9 +10,9 @@ type PrivateRouteProps = {
 
 function PrivateRoute({children, redirectTo}: PrivateRouteProps) {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  return authorizationStatus === AuthorizationStatus.Auth
-    ? children
-    : <Navigate to={redirectTo} />;
+  return authorizationStatus === AuthorizationStatus.NoAuth
+    ? <Navigate to={redirectTo} />
+    : children;
 }
 
 export default PrivateRoute;

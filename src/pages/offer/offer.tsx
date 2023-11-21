@@ -19,6 +19,7 @@ import {dropCurrentOffer} from '../../store/action';
 import {CityType} from '../../types/city';
 import Spinner from '../../components/app/spinner';
 import {AuthorizationStatus} from '../../const';
+import BookmarkButton from '../../components/places-cards/bookmark-button';
 
 function Offer() {
   const {offerId} = useParams();
@@ -43,7 +44,7 @@ function Offer() {
       <Spinner />
     );
   }
-
+  const favoriteStatus = currentOffer.isFavorite;
   const currentCity: CityType = currentOffer.city;
 
   const {images, goods, isPremium, rating, type, bedrooms, maxAdults, price, description, title, host}: OfferType = currentOffer;
@@ -71,12 +72,7 @@ function Offer() {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {isAuthorizationUser && offerId ? <BookmarkButton size={'large'} favoriteStatus={favoriteStatus} offerId={offerId} block={'offer'}/> : null}
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

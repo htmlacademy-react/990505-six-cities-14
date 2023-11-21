@@ -1,17 +1,19 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
-import {CardsImageSize} from '../../types/image';
+import {CardsSizeType} from '../../types/card-size';
+import BookmarkButton from './bookmark-button';
+import {selectAuthorizationStatus, useAppSelector} from '../../store/hooks';
 
 type PlaceCardProps = {
   offer: OfferPreviewType;
   block: 'favorites' | 'cities' | 'near-places';
-  size?: CardsImageSize;
+  size?: CardsSizeType;
   onCardHover?: (offerId: OfferPreviewType['id'] | null) => void;
 }
 
-const sizeMap: Record<CardsImageSize,{ width: string; height: string }> = {
+const sizeMap: Record<CardsSizeType,{ width: string; height: string }> = {
   small: { width: '150', height: '110' },
   large: { width: '260', height: '200' },
 };
@@ -26,6 +28,9 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
   function handleMouseLeave() {
     onCardHover?.(null);
   }
+
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthorizationUser = authorizationStatus === AuthorizationStatus.Auth;
 
   return(
     <article
@@ -50,12 +55,7 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite && 'place-card__bookmark-button--active'}`} type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {isAuthorizationUser ? <BookmarkButton size={'small'} favoriteStatus={isFavorite} offerId={id} block={'place-card'}/> : null}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

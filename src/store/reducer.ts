@@ -12,7 +12,7 @@ import {
   addReview,
   loadFavorites,
   setCurrentUserInfo,
-  dropCurrentOffer
+  dropCurrentOffer,
 } from './action';
 import {initialStateType} from '../types/initial-state';
 import {AuthorizationStatus, DEFAULT_CITY, NEAR_PLACES_LENGTH, SortingParameters} from '../const';
@@ -79,6 +79,6 @@ const reducer = createReducer(initialState, (builder) => {
     });
 });
 
-//TODO: ошибка
+//TODO обновлять offers и favoritesOffers
 export {reducer};
 

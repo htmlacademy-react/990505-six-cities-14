@@ -12,6 +12,7 @@ function UserStatusBar() {
   const isAuthorizationUser = authorizationStatus === AuthorizationStatus.Auth;
   const currentUserInfo = useAppSelector(selectCurrentUserInfo);
   const favoriteOffers = useAppSelector(selectFavoriteOffers);
+
   const dispatch = useAppDispatch();
   if (!isAuthorizationUser) {
     return (
@@ -28,6 +29,7 @@ function UserStatusBar() {
       </nav>
     );
   }
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">

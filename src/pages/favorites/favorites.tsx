@@ -13,10 +13,10 @@ import {
   fetchFavoriteOffersAction,
 } from '../../store/api-actions';
 import {loadFavorites} from '../../store/action';
+import Spinner from '../../components/app/spinner';
 
 
 function Favorites() {
-
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(selectFavoriteOffers);
   useEffect(()=> {
@@ -26,8 +26,8 @@ function Favorites() {
     };
   }, [dispatch]);
 
+
   const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[]}>(() => {
-    dispatch(fetchFavoriteOffersAction());
     const sortedOffers: Record<string, OfferPreviewType[]> = {};
     favorites.forEach((item) => {
       sortedOffers[item.city.name] = sortedOffers[item.city.name] || [];
@@ -37,7 +37,13 @@ function Favorites() {
       favoriteOffers: sortedOffers,
       favoriteCities: Object.keys(sortedOffers)
     };
-  }, [favorites, dispatch]);
+  }, [favorites]);
+
+  if (!favoriteOffers) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <Page className="page" title="6 cities: favorites">

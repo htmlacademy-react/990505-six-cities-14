@@ -26,9 +26,7 @@ function App() {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                redirectTo={AppRoute.Login}
-              >
+              <PrivateRoute redirectTo={AppRoute.Login}>
                 <Favorites />
               </PrivateRoute>
             }

@@ -10,6 +10,11 @@ export const setCurrentUserInfo = createAction<CurrentUserType | null>('user/set
 
 export const loadOffers = createAction<OfferPreviewType[]>('data/loadOffers');
 export const loadFavorites = createAction<OfferPreviewType[]>('offers/loadFavorites');
+//export const setFavoriteStatus = createAction<OfferType>('offers/setFavoriteStatus');
+
+//TODO
+
+
 export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');
 export const setSortingParameter = createAction<SortingParameters>('offers/setSortingParameter');
 export const fetchSortedOffers = createAction<OfferPreviewType[]>('offers/fetchSortedOffers');
@@ -21,6 +26,5 @@ export const addReview = createAction<ReviewType>('offer/addReview');
 export const loadNearPlace = createAction<OfferPreviewType[]>('offer/loadNearPlace');
 
 export const setSelectedCity = createAction<string>('offers/setSelectedCity');
-export const fetchFavorites = createAction<OfferPreviewType[]>('offers/fetchFavorites');
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');

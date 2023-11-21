@@ -3,10 +3,12 @@ import {createRoot} from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import {checkAuthAction, fetchFavoriteOffersAction, fetchOffersAction} from './store/api-actions';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
+store.dispatch(fetchFavoriteOffersAction());
+//TODO решить проблему с перерисовкой кол-ва фаворитов у пользователя
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement

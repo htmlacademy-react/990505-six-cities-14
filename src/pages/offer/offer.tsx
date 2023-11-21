@@ -1,38 +1,54 @@
-import {useMemo} from 'react';
+import {useEffect} from 'react';
 import Page from '../../components/page';
-import {AuthorizationStatus} from '../../const';
 import {OfferType} from '../../types/offers';
-import {reviews} from '../../mocks/review';
 import Reviews from '../../components/app/reviews';
-import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsForm from './reviews-form';
 import {addPluralEnding} from '../../utils';
 import CitiesMap from '../../components/app/citiesMap';
 import PlacesCards from '../../components/places-cards/places-cards';
-import {offer} from '../../mocks/offer';
-import {selectOffers, useAppSelector} from '../../store/hooks';
+import {
+  selectAuthorizationStatus,
+  selectCurrentOffer,
+  selectNearPlaces,
+  useAppDispatch,
+  useAppSelector
+} from '../../store/hooks';
+import {useParams } from 'react-router-dom';
+import {fetchNearPlaceAction, fetchOfferAction, fetchReviewsAction} from '../../store/api-actions';
+import {dropCurrentOffer} from '../../store/action';
 import {CityType} from '../../types/city';
-import {OfferPreviewType} from '../../types/offers-preview';
-
+import Spinner from '../../components/app/spinner';
+import {AuthorizationStatus} from '../../const';
 
 function Offer() {
-  //const { offerId } = useParams(); TODO подключить запрос оффера по id
-  const currentOffer: OfferType = offer;
-  const offers = useAppSelector(selectOffers);
-  const { currentCity, nearOffers } = useMemo<{ currentCity: CityType; nearOffers: OfferPreviewType[] }>(() => ({
-    currentCity: currentOffer.city,
-    nearOffers: offers.filter((item) => (item.id !== currentOffer.id && item.city.name === currentOffer.city.name)).slice(0, 3)
-  }), [currentOffer, offers]);
+  const {offerId} = useParams();
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthorizationUser = authorizationStatus === AuthorizationStatus.Auth;
+  const currentOffer = useAppSelector(selectCurrentOffer);
+  const nearPlaces = useAppSelector(selectNearPlaces);
+  useEffect(()=> {
+    if (offerId) {
+      dispatch(fetchOfferAction(offerId));
+      dispatch(fetchNearPlaceAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
+    }
+    return () => {
+      dispatch(dropCurrentOffer());
+    };
+  }, [offerId, dispatch]);
 
   if (!currentOffer) {
     return (
-      <NotFoundPage />
+      <Spinner />
     );
   }
 
+  const currentCity: CityType = currentOffer.city;
+
   const {images, goods, isPremium, rating, type, bedrooms, maxAdults, price, description, title, host}: OfferType = currentOffer;
   return (
-    <Page className="page" title="6 cities: offer" isAuthorizedUser={AuthorizationStatus.Auth}>
+    <Page className="page" title="6 cities: offer">
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -110,16 +126,16 @@ function Offer() {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <Reviews reviews={reviews}/>
-              <ReviewsForm />
+              <Reviews />
+              {isAuthorizationUser && offerId ? <ReviewsForm offerId={offerId}/> : null}
             </div>
           </div>
-          <CitiesMap offers={nearOffers} currentCity={currentCity} mapBlock={'offer'}/>
+          <CitiesMap offers={nearPlaces} currentCity={currentCity} mapBlock={'offer'}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesCards offers={nearOffers} block={'near-places'} size={'large'} />
+            <PlacesCards offers={nearPlaces} block={'near-places'} size={'large'} />
           </section>
 
         </div>
@@ -127,5 +143,4 @@ function Offer() {
     </Page>
   );
 }
-
 export default Offer;

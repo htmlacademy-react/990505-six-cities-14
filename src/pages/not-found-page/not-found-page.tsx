@@ -1,10 +1,9 @@
 import {Link} from 'react-router-dom';
 import Page from '../../components/page';
-import {AuthorizationStatus} from '../../const';
 
 function NotFoundPage() {
   return (
-    <Page className="page" title="6 cities: page not found" isAuthorizedUser={AuthorizationStatus.Auth}>
+    <Page className="page" title="6 cities: page not found">
       <main className="page__main" style={{minHeight: '100vh'}}>
         <div className="container">
           <h1>404</h1>

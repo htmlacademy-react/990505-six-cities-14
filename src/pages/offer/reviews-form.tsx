@@ -1,18 +1,25 @@
-import {useState, ChangeEvent} from 'react';
+import {useState} from 'react';
 import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
 import Rating from './rating';
+import {useAppDispatch} from '../../store/hooks';
+import {postReviewAction} from '../../store/api-actions';
 
-function ReviewsForm() {
+type ReviewsFormProps = {
+  offerId: string;
+}
+
+function ReviewsForm({offerId}: ReviewsFormProps) {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
-
+  const reviewData = {
+    comment: comment,
+    rating: +rating,
+  };
   const isValid = comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
     rating !== '';
 
-  function handleTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
-    setComment(evt.target.value);
-  }
+  const dispatch = useAppDispatch();
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -32,7 +39,7 @@ function ReviewsForm() {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
-        onChange={handleTextAreaChange}
+        onChange={(evt) => setComment(evt.target.value)}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -45,6 +52,12 @@ function ReviewsForm() {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!isValid}
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(postReviewAction({offerId, reviewData}));
+            setComment('');
+            setRating('');
+          }}
         >
           Submit
         </button>

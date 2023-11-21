@@ -1,11 +1,8 @@
-import {ReviewType} from '../../types/review';
 import Review from '../../pages/offer/review';
+import {selectReviews, useAppSelector} from '../../store/hooks';
 
-type OfferProps = {
-  reviews: ReviewType[];
-}
-
-function Reviews({ reviews }: OfferProps) {
+function Reviews() {
+  const reviews = useAppSelector(selectReviews);
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">

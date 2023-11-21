@@ -1,4 +1,4 @@
-import {ChangeEvent, Fragment} from 'react';
+import {Fragment} from 'react';
 
 type RatingProps = {
   score: string;
@@ -8,9 +8,6 @@ type RatingProps = {
 }
 
 function Rating({score, title, rating, setRating}: RatingProps) {
-  function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
-    setRating(evt.target.value);
-  }
   return (
     <Fragment key={score}>
       <input
@@ -20,7 +17,7 @@ function Rating({score, title, rating, setRating}: RatingProps) {
         id={`${score}-stars`}
         type="radio"
         checked={rating === score}
-        onChange={handleInputChange}
+        onChange={() => setRating(score)}
       />
       <label
         htmlFor={`${score}-stars`}

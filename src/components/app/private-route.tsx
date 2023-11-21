@@ -1,6 +1,7 @@
 import {Navigate} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 import {ReactNode} from 'react';
+import {selectAuthorizationStatus, useAppSelector} from '../../store/hooks';
 
 type PrivateRouteProps = {
   children: ReactNode | ReactNode[];
@@ -8,7 +9,7 @@ type PrivateRouteProps = {
 };
 
 function PrivateRoute({children, redirectTo}: PrivateRouteProps) {
-  const authorizationStatus = AuthorizationStatus.Auth;
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   return authorizationStatus === AuthorizationStatus.Auth
     ? children
     : <Navigate to={redirectTo} />;

@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRouter} from '../../const';
+import {AppRoute} from '../../const';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
 import {CardsImageSize} from '../../types/image';
@@ -35,7 +35,7 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
     >
       {isPremium && (<div className="place-card__mark"><span>Premium</span></div>)}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRouter.Offer}/${id}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -64,7 +64,7 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRouter.Offer}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>

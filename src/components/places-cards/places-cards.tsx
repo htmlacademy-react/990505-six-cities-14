@@ -9,7 +9,8 @@ type PlacesCardsProps = {
   size: CardsSizeType;
   onCardHover?: (offerId: OfferPreviewType['id'] | null) => void;
 }
-function PlacesCards ({offers, size, block, onCardHover}: PlacesCardsProps) {
+
+function PlacesCards({offers, size, block, onCardHover}: PlacesCardsProps) {
   return (
     <div className="near-places__list places__list">
       {offers.map((offer) => (

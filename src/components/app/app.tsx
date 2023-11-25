@@ -1,16 +1,10 @@
-import {Main, Favorites, Login, Offer, NotFoundPage} from '../../pages';
+import {Favorites, Login, Main, NotFoundPage, Offer} from '../../pages';
 import {AppRoute} from '../../const';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import PrivateRoute from './private-route';
-import {selectOfferDataLoadingStatus, useAppSelector} from '../../store/hooks';
-import Spinner from './spinner';
 
 function App() {
-  const isOfferDataLoading = useAppSelector(selectOfferDataLoadingStatus);
-  if (isOfferDataLoading) {
-    return <Spinner />;
-  }
   return (
     <HelmetProvider>
       <BrowserRouter>

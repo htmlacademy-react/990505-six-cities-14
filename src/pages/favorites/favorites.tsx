@@ -3,33 +3,31 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Page from '../../components/page';
 import PlaceCard from '../../components/places-cards/place-card';
-import {
-  selectFavoriteOffers,
-  useAppDispatch,
-  useAppSelector
-} from '../../store/hooks';
+import {selectOfferDataLoadingStatus, selectOffers, useAppDispatch, useAppSelector} from '../../store/hooks';
 import {OfferPreviewType} from '../../types/offers-preview';
-import {
-  fetchFavoriteOffersAction,
-} from '../../store/api-actions';
-import {loadFavorites} from '../../store/action';
+import {fetchFavoriteOffersAction,} from '../../store/api-actions';
+import {setOffers} from '../../store/action';
 import Spinner from '../../components/app/spinner';
-
 
 function Favorites() {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(selectFavoriteOffers);
-  useEffect(()=> {
+
+  useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
     return () => {
-      dispatch(loadFavorites([]));
+      dispatch(setOffers([]));
     };
   }, [dispatch]);
 
+  const offers = useAppSelector(selectOffers);
+  const isOfferDataLoading = useAppSelector(selectOfferDataLoadingStatus);
 
-  const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[]}>(() => {
+  const {
+    favoriteOffers,
+    favoriteCities
+  } = useMemo<{ favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[] }>(() => {
     const sortedOffers: Record<string, OfferPreviewType[]> = {};
-    favorites.forEach((item) => {
+    offers.forEach((item) => {
       sortedOffers[item.city.name] = sortedOffers[item.city.name] || [];
       sortedOffers[item.city.name].push(item);
     });
@@ -37,12 +35,11 @@ function Favorites() {
       favoriteOffers: sortedOffers,
       favoriteCities: Object.keys(sortedOffers)
     };
-  }, [favorites]);
+  }, [offers]);
 
-  if (!favoriteOffers) {
-    return (
-      <Spinner />
-    );
+
+  if (isOfferDataLoading) {
+    return <Spinner />;
   }
 
   return (

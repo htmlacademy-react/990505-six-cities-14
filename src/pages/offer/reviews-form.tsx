@@ -1,14 +1,18 @@
-import {useState} from 'react';
+import {MouseEvent, useState} from 'react';
 import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
 import Rating from './rating';
-import {useAppDispatch} from '../../store/hooks';
-import {postReviewAction} from '../../store/api-actions';
+import {postOfferReview} from '../../store/api-actions';
+import {CurrentOfferType} from '../../types/current-offer';
+import {ReviewType} from '../../types/review';
+
 
 type ReviewsFormProps = {
   offerId: string;
+  currentOffer: CurrentOfferType;
+  setCurrentOffer: (currentOffer: CurrentOfferType) => void;
 }
 
-function ReviewsForm({offerId}: ReviewsFormProps) {
+function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps) {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const reviewData = {
@@ -19,7 +23,16 @@ function ReviewsForm({offerId}: ReviewsFormProps) {
     comment.length <= MAX_COMMENT_LENGTH &&
     rating !== '';
 
-  const dispatch = useAppDispatch();
+  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    postOfferReview(offerId, reviewData).then((review) => {
+      const reviews: ReviewType[] = currentOffer.reviews;
+      reviews.push(review);
+      setCurrentOffer({...currentOffer, reviews: reviews});
+    });
+    setComment('');
+    setRating('');
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -52,12 +65,7 @@ function ReviewsForm({offerId}: ReviewsFormProps) {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!isValid}
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(postReviewAction({offerId, reviewData}));
-            setComment('');
-            setRating('');
-          }}
+          onClick={handleClick}
         >
           Submit
         </button>

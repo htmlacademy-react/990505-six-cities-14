@@ -1,24 +1,24 @@
-import {
-  selectCity,
-  selectOffers,
-  selectSortedOffers,
-  selectSortingParameter,
-  useAppDispatch,
-  useAppSelector
-} from '../../store/hooks';
 import {SortingParameters} from '../../const';
-import {fetchSortedOffers, setSortingParameter} from '../../store/action';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {OfferPreviewType} from '../../types/offers-preview';
+import {selectCityName, useAppSelector} from '../../store/hooks';
 
-function SortingForm() {
-  let sortedOffers = useAppSelector(selectSortedOffers);
-  const offers = useAppSelector(selectOffers);
-  const selectedCity = useAppSelector(selectCity);
-  const sortingParameter = useAppSelector(selectSortingParameter);
-  const dispatch = useAppDispatch();
+type Props = {
+  sortedOffers: OfferPreviewType[];
+  setSortedOffers: (sortedOffers: OfferPreviewType[]) => void;
+  getDefaultOrderSortedOffers: () => OfferPreviewType[];
+}
+
+function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers}: Props) {
+  const selectedCity = useAppSelector(selectCityName);
+  const [sortingParameter, setSortingParameter] = useState<SortingParameters>(SortingParameters.Default);
+
+  useEffect(() => {
+    setSortingParameter(SortingParameters.Default);
+  }, [selectedCity]);
 
   const sortByParameter = (parameter: SortingParameters) => {
-    dispatch(setSortingParameter(parameter));
+    setSortingParameter(parameter);
     switch (parameter) {
       case SortingParameters.PriceHighToLow:
         sortedOffers = [...sortedOffers].sort((a, b) => b.price - a.price);
@@ -30,12 +30,12 @@ function SortingForm() {
         sortedOffers = [...sortedOffers].sort((a, b) => a.rating - b.rating);
         break;
       default:
-        sortedOffers = offers.filter((item) => item.city.name === selectedCity);
+        sortedOffers = getDefaultOrderSortedOffers();
     }
-    dispatch(fetchSortedOffers(sortedOffers));
+    setSortedOffers(sortedOffers);
   };
-
   const [isOpened, setIsOpened] = useState(false);
+
   function handleClick() {
     setIsOpened((prevIsOpened) => !prevIsOpened);
   }

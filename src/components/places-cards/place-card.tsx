@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
 import {CardsSizeType} from '../../types/card-size';
 import BookmarkButton from './bookmark-button';
-import {selectAuthorizationStatus, useAppSelector} from '../../store/hooks';
+import {isUserAuthorized, useAppSelector} from '../../store/hooks';
 
 type PlaceCardProps = {
   offer: OfferPreviewType;
@@ -13,13 +13,13 @@ type PlaceCardProps = {
   onCardHover?: (offerId: OfferPreviewType['id'] | null) => void;
 }
 
-const sizeMap: Record<CardsSizeType,{ width: string; height: string }> = {
+const sizeMap: Record<CardsSizeType, { width: string; height: string }> = {
   small: { width: '150', height: '110' },
   large: { width: '260', height: '200' },
 };
 
-function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps) {
-  const { id, price, isPremium, rating, title, type, previewImage, isFavorite} = offer;
+function PlaceCard({offer, block, size = 'large', onCardHover}: PlaceCardProps) {
+  const {id, price, isPremium, rating, title, type, previewImage, isFavorite} = offer;
 
   function handleMouseEnter() {
     onCardHover?.(id);
@@ -29,10 +29,8 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
     onCardHover?.(null);
   }
 
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isAuthorizationUser = authorizationStatus === AuthorizationStatus.Auth;
-
-  return(
+  const isAuthorizationUser = useAppSelector(isUserAuthorized);
+  return (
     <article
       className={`${block}__card place-card`}
       onMouseEnter={handleMouseEnter}
@@ -55,11 +53,12 @@ function PlaceCard({ offer, block, size = 'large', onCardHover}: PlaceCardProps)
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          {isAuthorizationUser ? <BookmarkButton size={'small'} favoriteStatus={isFavorite} offerId={id} block={'place-card'}/> : null}
+          {isAuthorizationUser &&
+            <BookmarkButton size={'small'} currentOffer={offer} favoriteStatus={isFavorite} offerId={id} block={'place-card'} />}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offerRatingInPercentage(rating)}%` }} />
+            <span style={{width: `${offerRatingInPercentage(rating)}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

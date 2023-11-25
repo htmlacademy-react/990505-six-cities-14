@@ -1,84 +1,84 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {
-  setSelectedCity,
-  loadOffers,
-  requireAuthorizationStatus,
-  fetchSortedOffers,
-  setSortingParameter,
-  setOffersDataLoadingStatus,
-  loadCurrentOffer,
-  loadReviews,
-  loadNearPlace,
-  addReview,
-  loadFavorites,
-  setCurrentUserInfo,
-  dropCurrentOffer,
-} from './action';
+import {loadFavorites, setFavoriteStatus, setOffers, setSelectedCityName,} from './action';
 import {initialStateType} from '../types/initial-state';
-import {AuthorizationStatus, DEFAULT_CITY, NEAR_PLACES_LENGTH, SortingParameters} from '../const';
+import {AuthorizationStatus, DEFAULT_CITY} from '../const';
+import {checkAuthAction, fetchFavoriteOffersAction, fetchOffersAction, loginAction, logoutAction} from './api-actions';
 
 const initialState: initialStateType = {
   offers: [],
-  isOffersDataLoading: true,
-  selectedCity: DEFAULT_CITY,
-  sortingParameter: SortingParameters.Default,
-  sortedOffers: [],
-  currentOffer: null,
-  nearPlaces:[],
-  reviews: [],
   favoriteOffers: [],
+  isOffersDataLoading: true,
+  selectedCityName: DEFAULT_CITY,
   authorizationStatus: AuthorizationStatus.Unknown,
   currentUserInfo: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(requireAuthorizationStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
-    .addCase(setCurrentUserInfo, (state, action) => {
+    .addCase(checkAuthAction.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
       state.currentUserInfo = action.payload;
     })
-    .addCase(setOffersDataLoadingStatus, (state, action) => {
-      state.isOffersDataLoading = action.payload;
+    .addCase(checkAuthAction.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.currentUserInfo = null;
     })
-    .addCase(loadOffers, (state, action) => {
+    .addCase(loginAction.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.currentUserInfo = action.payload;
+    })
+    .addCase(loginAction.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.currentUserInfo = null;
+    })
+    .addCase(logoutAction.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.Unknown;
+    })
+    .addCase(logoutAction.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+      state.currentUserInfo = null;
+    })
+    .addCase(fetchOffersAction.pending, (state) => {
+      state.offers = [];
+      state.isOffersDataLoading = true;
+    })
+    .addCase(fetchOffersAction.fulfilled, (state, action) => {
       state.offers = action.payload;
-      state.sortedOffers = action.payload.filter((item) => item.city.name === state.selectedCity);
+      state.isOffersDataLoading = false;
     })
-    .addCase(dropCurrentOffer, (state) => {
-      state.currentOffer = null;
-      state.nearPlaces = [];
-      state.reviews = [];
+    .addCase(fetchOffersAction.rejected, (state) => {
+      state.offers = [];
+      state.isOffersDataLoading = false;
     })
-    .addCase(loadCurrentOffer, (state, action) => {
-      state.currentOffer = action.payload;
+    .addCase(fetchFavoriteOffersAction.pending, (state) => {
+      state.offers = [];
+      state.isOffersDataLoading = true;
     })
-    .addCase(loadReviews, (state, action) => {
-      state.reviews = action.payload;
+    .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+      state.offers = action.payload;
+      state.isOffersDataLoading = false;
     })
-    .addCase(addReview, (state, action) => {
-      state.reviews.push(action.payload);
+    .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+      state.offers = [];
+      state.isOffersDataLoading = false;
     })
-    .addCase(loadNearPlace, (state, action) => {
-      state.nearPlaces = action.payload.slice(0, NEAR_PLACES_LENGTH);
+    .addCase(setOffers, (state, action) => {
+      state.offers = action.payload;
     })
-    .addCase(setSelectedCity, (state, action) => {
-      state.selectedCity = action.payload;
-      state.sortingParameter = SortingParameters.Default;
-      state.sortedOffers = state.offers.filter((item) => item.city.name === action.payload);
+    .addCase(setFavoriteStatus, (state, action) => {
+      state.offers.map((item) => {
+        if (item.id === action.payload.offerId) {
+          item.isFavorite = action.payload.status;
+        }
+      });
     })
-    .addCase(fetchSortedOffers, (state, action) => {
-      state.sortedOffers = action.payload;
-    })
-    .addCase(setSortingParameter, (state, action) => {
-      state.sortingParameter = action.payload;
+    .addCase(setSelectedCityName, (state, action) => {
+      state.selectedCityName = action.payload;
     })
     .addCase(loadFavorites, (state, action) => {
       state.favoriteOffers = action.payload;
     });
 });
 
-//TODO обновлять offers и favoritesOffers
 export {reducer};
 

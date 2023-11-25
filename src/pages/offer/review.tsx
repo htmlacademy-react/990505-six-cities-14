@@ -9,7 +9,7 @@ type ReviewProps = {
 function Review({review}: ReviewProps) {
   const {avatarUrl, name} = review.user;
   const {comment, date, rating} = review;
-  return(
+  return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -26,7 +26,7 @@ function Review({review}: ReviewProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${offerRatingInPercentage(rating)}%` }} />
+            <span style={{width: `${offerRatingInPercentage(rating)}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

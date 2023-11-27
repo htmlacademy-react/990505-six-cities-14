@@ -5,7 +5,7 @@ import {AppDispatchType, StateType} from '../types/state';
 import {OfferPreviewType} from '../types/offers-preview';
 import {redirectToRoute,} from './action';
 import {AuthDataType} from '../types/auth-data';
-import {dropToken, saveToken} from '../services/token';
+import {dropToken, getToken, saveToken} from '../services/token';
 import {CurrentUserType} from '../types/current-user';
 import {OfferType} from '../types/offers';
 import {ReviewType} from '../types/review';
@@ -47,16 +47,18 @@ export const postOfferReview = async function (offerId: string, review: ReviewDa
   return response.data;
 };
 
-
-export const checkAuthAction = createAsyncThunk<CurrentUserType, undefined, {
+export const checkAuthAction = createAsyncThunk<CurrentUserType|null, undefined, {
   dispatch: AppDispatchType;
   state: StateType;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<CurrentUserType>(APIRoute.Login);
-    return data;
+    if (getToken()) {
+      const {data} = await api.get<CurrentUserType>(APIRoute.Login);
+      return data;
+    }
+    return null;
   },
 );
 export const loginAction = createAsyncThunk<CurrentUserType, AuthDataType, {
@@ -88,7 +90,7 @@ export const fetchOfferById = async function (offerId: string) {
   const api = createAPI();
   const offerResponse = await api.get<OfferType>(`${APIRoute.Offers}/${offerId}`);
   if (offerResponse.status) {
-    const nearPlacesResponse = await api.get<OfferPreviewType[]>(`${APIRoute.Offers}/${offerId}${APIRoute.NearPlace}`);
+    const nearPlacesResponse = await api.get<OfferType[]>(`${APIRoute.Offers}/${offerId}${APIRoute.NearPlace}`);
     const reviewsResponse = await api.get<ReviewType[]>(`${APIRoute.Reviews}/${offerId}`);
     return {
       offer: offerResponse.data,

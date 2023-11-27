@@ -4,9 +4,10 @@ import {CityType} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import {Icon, layerGroup, Marker} from 'leaflet';
 import {OfferPreviewType} from '../../types/offers-preview';
+import {OfferType} from '../../types/offers';
 
 type CitiesMapProps = {
-  offers: OfferPreviewType[];
+  offers: OfferType[] | OfferPreviewType[];
   currentCity: CityType;
   selectedOffer?: OfferPreviewType | null;
   mapBlock: string;

@@ -1,10 +1,9 @@
 import {MouseEvent, useState} from 'react';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
+import {MAX_COMMENT_LENGTH, MAX_REVIEWS_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
 import Rating from './rating';
 import {postOfferReview} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
 import {ReviewType} from '../../types/review';
-
 
 type ReviewsFormProps = {
   offerId: string;
@@ -15,6 +14,7 @@ type ReviewsFormProps = {
 function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps) {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
+  const [isReviewSending, setIsReviewSending] = useState(false);
   const reviewData = {
     comment: comment,
     rating: +rating,
@@ -25,15 +25,16 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
 
   const handleClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
-    postOfferReview(offerId, reviewData).then((review) => {
-      const reviews: ReviewType[] = currentOffer.reviews;
-      reviews.push(review);
-      setCurrentOffer({...currentOffer, reviews: reviews});
-    });
+    setIsReviewSending(true);
+    postOfferReview(offerId, reviewData).then((review: ReviewType) => {
+      setCurrentOffer({...currentOffer, reviews: [review, ...currentOffer.reviews].slice(0, MAX_REVIEWS_LENGTH)});
+    })
+      .finally(() => {
+        setIsReviewSending(false);
+      });
     setComment('');
     setRating('');
   };
-
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
@@ -43,13 +44,14 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
         {Object.entries(ratingMap)
           .reverse()
           .map(([score, title]) => (
-            <Rating key={score} score={score} title={title} rating={rating} setRating={setRating} />
+            <Rating key={score} score={score} title={title} rating={rating} setRating={setRating} disabled={isReviewSending} />
           ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
+        disabled={isReviewSending}
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         onChange={(evt) => setComment(evt.target.value)}
@@ -64,7 +66,7 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isReviewSending}
           onClick={handleClick}
         >
           Submit

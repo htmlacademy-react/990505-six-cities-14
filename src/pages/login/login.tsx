@@ -11,6 +11,7 @@ function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (emailRef.current && emailRef.current?.value && passwordRef.current && passwordRef.current?.value) {
@@ -36,7 +37,7 @@ function Login() {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required={false}
+                  required
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -47,7 +48,9 @@ function Login() {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required={false}
+                  required
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{3,}"
+                  title="Must contain at least one number and one letter"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">

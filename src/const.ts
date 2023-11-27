@@ -37,6 +37,10 @@ export const DEFAULT_CITY = Locations[0];
 
 export const NEAR_PLACES_LENGTH = 3;
 
+export const MAX_IMAGES_LENGTH = 6;
+
+export const MAX_REVIEWS_LENGTH = 10;
+
 export enum SortingParameters {
   Default = 'Popular',
   PriceLowToHigh = 'Price: low to high',

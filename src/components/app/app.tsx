@@ -3,6 +3,9 @@ import {AppRoute} from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import PrivateRoute from './private-route';
+import GuestRoute from './guest-router';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -27,7 +30,11 @@ function App() {
           />
           <Route
             path={AppRoute.Login}
-            element={<Login />}
+            element={
+              <GuestRoute redirectTo={AppRoute.Main}>
+                <Login/>
+              </GuestRoute>
+            }
           />
           <Route
             path='*'
@@ -35,6 +42,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </HelmetProvider>
   );
 }

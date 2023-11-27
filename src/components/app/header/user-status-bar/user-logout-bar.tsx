@@ -2,6 +2,7 @@ import {logoutAction} from '../../../../store/api-actions';
 import {Link} from 'react-router-dom';
 import {selectCurrentUserInfo, selectOffers, useAppDispatch, useAppSelector} from '../../../../store/hooks';
 import {MouseEvent} from 'react';
+import {AppRoute} from '../../../../const';
 
 function UserLogoutBar() {
   const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ function UserLogoutBar() {
         <li className="header__nav-item user">
           <Link
             className="header__nav-link header__nav-link--profile"
-            to="src/components/app/header/user-status-bar#"
+            to={AppRoute.Favorites}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">{currentUserInfo?.email}</span>

@@ -1,11 +1,12 @@
 import {useCallback, useEffect, useState} from 'react';
 import SortingForm from './sorting-form';
 import {OfferPreviewType} from '../../types/offers-preview';
-import CitiesMap from '../../components/app/citiesMap';
+import CitiesMap from '../../components/app/cities-map';
 import {addPluralEnding} from '../../utils';
 import 'leaflet/dist/leaflet.css';
 import PlacesCards from '../../components/places-cards/places-cards';
 import {selectCityName, selectOffers, useAppSelector} from '../../store/hooks';
+import CitiesEmpty from './cities-empty';
 
 function Cities() {
   const [sortedOffers, setSortedOffers] = useState<OfferPreviewType[]>([]);
@@ -26,7 +27,9 @@ function Cities() {
     const currentOffer = sortedOffers.find((offer) => offer.id === offerId) || null;
     setHoveredOffer(currentOffer);
   }
-
+  if (!sortedOffers) {
+    return <CitiesEmpty currentCityName={currentCity.name}/>;
+  }
   return (
     <div className="cities">
       <div className="cities__places-container container">

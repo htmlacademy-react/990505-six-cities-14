@@ -1,17 +1,33 @@
-import {useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRouter} from '../../const';
+import {AppRoute} from '../../const';
 import Page from '../../components/page';
-import {AuthorizationStatus} from '../../const';
 import PlaceCard from '../../components/places-cards/place-card';
-import {selectFavoriteOffers, useAppSelector} from '../../store/hooks';
+import {selectOfferDataLoadingStatus, selectOffers, useAppDispatch, useAppSelector} from '../../store/hooks';
 import {OfferPreviewType} from '../../types/offers-preview';
+import {fetchFavoriteOffersAction,} from '../../store/api-actions';
+import {setOffers} from '../../store/action';
+import Spinner from '../../components/app/spinner';
 
 function Favorites() {
-  const favorites = useAppSelector(selectFavoriteOffers);
-  const { favoriteOffers, favoriteCities } = useMemo<{favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[]}>(() => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+    return () => {
+      dispatch(setOffers([]));
+    };
+  }, [dispatch]);
+
+  const offers = useAppSelector(selectOffers);
+  const isOfferDataLoading = useAppSelector(selectOfferDataLoadingStatus);
+
+  const {
+    favoriteOffers,
+    favoriteCities
+  } = useMemo<{ favoriteOffers: Record<string, OfferPreviewType[]>; favoriteCities: string[] }>(() => {
     const sortedOffers: Record<string, OfferPreviewType[]> = {};
-    favorites.forEach((item) => {
+    offers.forEach((item) => {
       sortedOffers[item.city.name] = sortedOffers[item.city.name] || [];
       sortedOffers[item.city.name].push(item);
     });
@@ -19,10 +35,15 @@ function Favorites() {
       favoriteOffers: sortedOffers,
       favoriteCities: Object.keys(sortedOffers)
     };
-  }, [favorites]);
+  }, [offers]);
+
+
+  if (isOfferDataLoading) {
+    return <Spinner />;
+  }
 
   return (
-    <Page className="page" title="6 cities: favorites" isAuthorizedUser={AuthorizationStatus.Auth}>
+    <Page className="page" title="6 cities: favorites">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -48,7 +69,7 @@ function Favorites() {
         </div>
       </main>
       <footer className="footer container">
-        <Link className="footer__logo-link" to={AppRouter.Main}>
+        <Link className="footer__logo-link" to={AppRoute.Main}>
           <img
             className="footer__logo"
             src="img/logo.svg"

@@ -1,23 +1,12 @@
 import {createAction} from '@reduxjs/toolkit';
-import {ReviewType} from '../types/review';
-import {AuthorizationStatus, SortingParameters} from '../const';
+import {AppRoute} from '../const';
 import {OfferPreviewType} from '../types/offers-preview';
 
-//export const loadOffers = createAction<OfferPreviewType[]>('data/loadOffers');
 
-export const loadOffers = createAction<OfferPreviewType[]>('data/loadOffers');
+export const setOffers = createAction<OfferPreviewType[]>('offers/setOffers');
+export const loadFavorites = createAction<OfferPreviewType[]>('offers/loadFavorites');
+export const setFavoriteStatus = createAction<{ offerId: string; status: boolean }>('offers/setFavoriteStatus');
 
-export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');
+export const setSelectedCityName = createAction<string>('offers/setSelectedCityName');
 
-export const setSelectedCity = createAction<string>('offers/setSelectedCity');
-
-export const setSortingParameter = createAction<SortingParameters>('offers/setSortingParameter');
-
-export const fetchSortedOffers = createAction<OfferPreviewType[]>('offers/fetchSortedOffers');
-
-export const fetchReviews = createAction<ReviewType[]>('review/fetchReviews');
-
-export const fetchFavorites = createAction<OfferPreviewType[]>('offers/fetchFavorites');
-
-export const requireAuthorizationStatus = createAction<AuthorizationStatus>('user/requireAuthorizationStatus');
-
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');

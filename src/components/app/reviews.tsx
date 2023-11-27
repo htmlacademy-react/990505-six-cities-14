@@ -1,11 +1,11 @@
-import {ReviewType} from '../../types/review';
 import Review from '../../pages/offer/review';
+import {ReviewType} from '../../types/review';
 
-type OfferProps = {
+type ReviewsProps = {
   reviews: ReviewType[];
 }
 
-function Reviews({ reviews }: OfferProps) {
+function Reviews({reviews}: ReviewsProps) {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">

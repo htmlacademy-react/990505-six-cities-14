@@ -2,7 +2,7 @@ export const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
-export enum AppRouter {
+export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
@@ -17,6 +17,9 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/offers',
+  Favorite = '/favorite',
+  Reviews = '/comments',
+  NearPlace = '/nearby',
   Login = '/login',
   Logout = '/logout',
 }
@@ -31,6 +34,8 @@ export const Locations = [
 ];
 
 export const DEFAULT_CITY = Locations[0];
+
+export const NEAR_PLACES_LENGTH = 3;
 
 export enum SortingParameters {
   Default = 'Popular',

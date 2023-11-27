@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef, MutableRefObject} from 'react';
+import {MutableRefObject, useEffect, useRef, useState} from 'react';
 import * as leaflet from 'leaflet';
 import {CityType} from '../types/city';
 

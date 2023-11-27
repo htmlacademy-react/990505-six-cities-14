@@ -1,17 +1,37 @@
 import Page from '../../components/page';
-import {AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
+import {FormEvent, useRef} from 'react';
+import {useAppDispatch} from '../../store/hooks';
+import {loginAction} from '../../store/api-actions';
+import {useNavigate} from 'react-router-dom';
+
 
 function Login() {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (emailRef.current && emailRef.current?.value && passwordRef.current && passwordRef.current?.value) {
+      dispatch(loginAction({
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value,
+      }));
+      navigate(AppRoute.Main);
+    }
+  };
   return (
-    <Page className="page page--gray page--login" title="6 cities: authorization" isAuthorizedUser={AuthorizationStatus.Auth}>
+    <Page className="page page--gray page--login" title="6 cities: authorization">
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  ref={emailRef}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -22,6 +42,7 @@ function Login() {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  ref={passwordRef}
                   className="login__input form__input"
                   type="password"
                   name="password"

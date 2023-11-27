@@ -1,18 +1,13 @@
-import {AuthorizationStatus, SortingParameters} from '../const';
+import {AuthorizationStatus} from '../const';
 import {OfferPreviewType} from './offers-preview';
-import {ReviewType} from './review';
-import {OfferType} from './offers';
+import {CurrentUserType} from './current-user';
 
 export type initialStateType = {
-  selectedCity: string;
+  selectedCityName: string;
   offers: OfferPreviewType[];
   isOffersDataLoading: boolean;
-  sortingParameter: SortingParameters;
-  sortedOffers: OfferPreviewType[];
-  currentOffer: OfferType | null;
-  nearPlaces: OfferPreviewType[];
   favoriteOffers: OfferPreviewType[];
-  reviews: ReviewType[];
   authorizationStatus: AuthorizationStatus;
+  currentUserInfo: CurrentUserType | null;
 };
 

@@ -9,16 +9,25 @@ import {useParams} from 'react-router-dom';
 import Spinner from '../../components/app/spinner';
 import BookmarkButton from '../../components/places-cards/bookmark-button';
 
-import {fetchOfferById} from '../../store/api-actions';
+import {fetchOfferById, fetchOffersAction} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
 import {MAX_IMAGES_LENGTH, MAX_REVIEWS_LENGTH} from '../../const';
 import {AxiosError} from 'axios';
 import {NotFoundPage} from '../index';
+import {setOffers} from '../../store/action';
+import {useAppDispatch} from '../../store/hooks';
 
 function Offer() {
   const {offerId} = useParams();
   const [currentOffer, setCurrentOffer] = useState<CurrentOfferType | null>(null);
   const [isNotFound, setIsNotFound] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    return () => {
+      dispatch(setOffers([]));
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (offerId) {

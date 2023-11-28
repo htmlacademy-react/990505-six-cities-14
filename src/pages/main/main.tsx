@@ -8,7 +8,6 @@ import {
 } from '../../store/hooks';
 import {fetchOffersAction} from '../../store/api-actions';
 import {useEffect} from 'react';
-import {} from '../../store/action';
 import Spinner from '../../components/app/spinner';
 import {isUserAuthorized} from '../../store/user-process/selectors';
 import {selectCityName, selectOfferDataLoadingStatus} from '../../store/offers-data/selectors';

@@ -28,7 +28,7 @@ function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers
         sortedOffers = [...sortedOffers].sort((a, b) => a.price - b.price);
         break;
       case SortingParameters.Top:
-        sortedOffers = [...sortedOffers].sort((a, b) => a.rating - b.rating);
+        sortedOffers = [...sortedOffers].sort((a, b) => b.rating - a.rating);
         break;
       default:
         sortedOffers = getDefaultOrderSortedOffers();

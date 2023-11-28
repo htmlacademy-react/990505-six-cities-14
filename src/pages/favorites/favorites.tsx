@@ -4,7 +4,6 @@ import {AppRoute} from '../../const';
 import Page from '../../components/page';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {fetchFavoriteOffersAction,} from '../../store/api-actions';
-import {} from '../../store/action';
 import Spinner from '../../components/app/spinner';
 import FavoriteList from './favorite-list';
 import FavoriteListEmpty from './favorite-list-empty';

@@ -4,7 +4,6 @@ import {MouseEvent, useState} from 'react';
 
 import {CurrentOfferType} from '../../types/current-offer';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
-import {} from '../../store/action';
 import {OfferType} from '../../types/offers';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {AppRoute} from '../../const';

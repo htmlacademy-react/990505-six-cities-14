@@ -99,7 +99,7 @@ function Offer() {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <BookmarkButton size={'large'} favoriteStatus={isFavorite} currentOffer={currentOffer} offerId={offerId} block={'offer'} />
+                <BookmarkButton size='large' favoriteStatus={isFavorite} currentOffer={currentOffer} offerId={offerId} block='offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -154,12 +154,12 @@ function Offer() {
               <Reviews reviews={currentOffer.reviews} offerId={offerId} currentOffer={currentOffer} setCurrentOffer={setCurrentOffer}/>
             </div>
           </div>
-          {offerId && <CitiesMap offers={[...currentOffer.nearPlaces, currentOffer.offer]} currentCity={city} mapBlock={'offer'}/>}
+          {offerId && <CitiesMap offers={[...currentOffer.nearPlaces, currentOffer.offer]} currentCity={city} mapBlock='offer'/>}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesCards offers={currentOffer.nearPlaces} block={'near-places'} size={'large'}/>
+            <PlacesCards offers={currentOffer.nearPlaces} block='near-places' size='large'/>
           </section>
         </div>
       </main>

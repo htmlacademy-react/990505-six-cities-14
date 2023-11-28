@@ -37,10 +37,10 @@ function Cities() {
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{sortedOffers.length} place{addPluralEnding(sortedOffers.length)} to stay in {selectedCityName}</b>
           <SortingForm sortedOffers={sortedOffers} setSortedOffers={setSortedOffers} getDefaultOrderSortedOffers={getDefaultOrderSortedOffers} />
-          <PlacesCards offers={sortedOffers} onCardHover={handleCardHover} size={'large'} block={'cities'} />
+          <PlacesCards offers={sortedOffers} onCardHover={handleCardHover} size='large' block='cities' />
         </section>
         <div className="cities__right-section">
-          <CitiesMap offers={sortedOffers} currentCity={currentCity} selectedOffer={selectedOffer} mapBlock={'cities'} />
+          <CitiesMap offers={sortedOffers} currentCity={currentCity} selectedOffer={selectedOffer} mapBlock='cities' />
         </div>
       </div>
     </div>

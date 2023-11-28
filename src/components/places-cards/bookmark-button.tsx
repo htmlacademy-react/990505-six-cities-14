@@ -3,10 +3,12 @@ import {CardsSizeType} from '../../types/card-size';
 import {MouseEvent, useState} from 'react';
 
 import {CurrentOfferType} from '../../types/current-offer';
-import {useAppDispatch} from '../../store/hooks';
+import {isUserAuthorized, useAppDispatch, useAppSelector} from '../../store/hooks';
 import {setFavoriteStatus} from '../../store/action';
 import {OfferType} from '../../types/offers';
 import {OfferPreviewType} from '../../types/offers-preview';
+import {AppRoute} from '../../const';
+import {useNavigate} from 'react-router-dom';
 
 const sizeMap: Record<CardsSizeType, { width: string; height: string }> = {
   small: { width: '18', height: '19' },
@@ -25,17 +27,22 @@ type BookmarkButtonProps = {
 function BookmarkButton({offerId, favoriteStatus, block, size = 'small'}: BookmarkButtonProps) {
   const dispatch = useAppDispatch();
   const [status, setStatus] = useState<boolean>(favoriteStatus);
+  const isAuthorizationUser = useAppSelector(isUserAuthorized);
   const bookmarkClasses = `
       ${block}__bookmark-button
       ${status ? `${block}__bookmark-button--active` : ''}
       button`;
-
+  const navigate = useNavigate();
   const handleClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
-    postOfferFavoriteStatus(offerId, !status).then((value: OfferType) => {
-      setStatus(value.isFavorite);
-      dispatch(setFavoriteStatus({offerId, status: value.isFavorite}));
-    });
+    if (isAuthorizationUser) {
+      postOfferFavoriteStatus(offerId, !status).then((value: OfferType) => {
+        setStatus(value.isFavorite);
+        dispatch(setFavoriteStatus({offerId, status: value.isFavorite}));
+      });
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   return (

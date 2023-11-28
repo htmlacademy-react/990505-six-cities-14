@@ -2,32 +2,57 @@ import {useEffect, useState} from 'react';
 import Page from '../../components/page';
 import {OfferType} from '../../types/offers';
 import Reviews from '../../components/app/reviews';
-import ReviewsForm from './reviews-form';
-import {addPluralEnding} from '../../utils';
-import CitiesMap from '../../components/app/citiesMap';
+import {addPluralEnding, offerRatingInPercentage} from '../../utils';
+import CitiesMap from '../../components/app/cities-map';
 import PlacesCards from '../../components/places-cards/places-cards';
-import {isUserAuthorized, useAppSelector} from '../../store/hooks';
 import {useParams} from 'react-router-dom';
 import Spinner from '../../components/app/spinner';
 import BookmarkButton from '../../components/places-cards/bookmark-button';
 
-import {fetchOfferById} from '../../store/api-actions';
+import {fetchOfferById, fetchOffersAction} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
+import {MAX_IMAGES_LENGTH, MAX_REVIEWS_LENGTH} from '../../const';
+import {AxiosError} from 'axios';
+import {NotFoundPage} from '../index';
+import {setOffers} from '../../store/action';
+import {useAppDispatch} from '../../store/hooks';
 
 function Offer() {
   const {offerId} = useParams();
   const [currentOffer, setCurrentOffer] = useState<CurrentOfferType | null>(null);
-  const isAuthorizationUser = useAppSelector(isUserAuthorized);
+  const [isNotFound, setIsNotFound] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    return () => {
+      dispatch(setOffers([]));
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (offerId) {
-      fetchOfferById(offerId).then((responseOffer: CurrentOfferType | null) => setCurrentOffer(responseOffer));
+      fetchOfferById(offerId).then((responseOffer: CurrentOfferType | null) => {
+        if (responseOffer) {
+          const reverseReviews = responseOffer.reviews.reverse().slice(0, MAX_REVIEWS_LENGTH);
+          responseOffer.reviews = reverseReviews;
+          setCurrentOffer(responseOffer);
+        }
+      }).catch((response: AxiosError<{message:string}>) => {
+        if (response.response?.status === 404) {
+          setIsNotFound(true);
+        }
+      });
     }
     return () => {
       setCurrentOffer(null);
     };
   }, [offerId]);
 
+  if (isNotFound) {
+    return (
+      <NotFoundPage />
+    );
+  }
   if (!offerId || !currentOffer) {
     return (
       <Spinner/>
@@ -56,7 +81,7 @@ function Offer() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((img) => (
+              {images.slice(0, MAX_IMAGES_LENGTH).map((img) => (
                 <div className="offer__image-wrapper" key={img}>
                   <img
                     className="offer__image"
@@ -74,12 +99,11 @@ function Offer() {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                {isAuthorizationUser && offerId ?
-                  <BookmarkButton size={'large'} favoriteStatus={isFavorite} currentOffer={currentOffer} offerId={offerId} block={'offer'} /> : null}
+                <BookmarkButton size='large' favoriteStatus={isFavorite} currentOffer={currentOffer} offerId={offerId} block='offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}/>
+                  <span style={{width: `${offerRatingInPercentage(rating)}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -127,19 +151,16 @@ function Offer() {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <Reviews reviews={currentOffer.reviews}/>
-              {(isAuthorizationUser && offerId) &&
-                <ReviewsForm offerId={offerId} currentOffer={currentOffer} setCurrentOffer={setCurrentOffer} />}
+              <Reviews reviews={currentOffer.reviews} offerId={offerId} currentOffer={currentOffer} setCurrentOffer={setCurrentOffer}/>
             </div>
           </div>
-          {offerId && <CitiesMap offers={currentOffer.nearPlaces} currentCity={city} mapBlock={'offer'}/>}
+          {offerId && <CitiesMap offers={[...currentOffer.nearPlaces, currentOffer.offer]} currentCity={city} mapBlock='offer'/>}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesCards offers={currentOffer.nearPlaces} block={'near-places'} size={'large'}/>
+            <PlacesCards offers={currentOffer.nearPlaces} block='near-places' size='large'/>
           </section>
-
         </div>
       </main>
     </Page>

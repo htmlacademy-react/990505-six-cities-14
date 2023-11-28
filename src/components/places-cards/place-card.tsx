@@ -4,7 +4,6 @@ import {OfferPreviewType} from '../../types/offers-preview';
 import {capitalize, offerRatingInPercentage} from '../../utils';
 import {CardsSizeType} from '../../types/card-size';
 import BookmarkButton from './bookmark-button';
-import {isUserAuthorized, useAppSelector} from '../../store/hooks';
 
 type PlaceCardProps = {
   offer: OfferPreviewType;
@@ -28,8 +27,6 @@ function PlaceCard({offer, block, size = 'large', onCardHover}: PlaceCardProps) 
   function handleMouseLeave() {
     onCardHover?.(null);
   }
-
-  const isAuthorizationUser = useAppSelector(isUserAuthorized);
   return (
     <article
       className={`${block}__card place-card`}
@@ -53,8 +50,7 @@ function PlaceCard({offer, block, size = 'large', onCardHover}: PlaceCardProps) 
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          {isAuthorizationUser &&
-            <BookmarkButton size={'small'} currentOffer={offer} favoriteStatus={isFavorite} offerId={id} block={'place-card'} />}
+          <BookmarkButton size='small' currentOffer={offer} favoriteStatus={isFavorite} offerId={id} block='place-card' />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -2,7 +2,13 @@ import Page from '../../components/page';
 import {Locations} from '../../const';
 import LocationsList from './locations-list';
 import Cities from './cities';
-import {selectCityName, selectOfferDataLoadingStatus, useAppDispatch, useAppSelector} from '../../store/hooks';
+import {
+  isUserAuthorized,
+  selectCityName,
+  selectOfferDataLoadingStatus,
+  useAppDispatch,
+  useAppSelector
+} from '../../store/hooks';
 import {fetchOffersAction} from '../../store/api-actions';
 import {useEffect} from 'react';
 import {setOffers} from '../../store/action';
@@ -10,13 +16,14 @@ import Spinner from '../../components/app/spinner';
 
 
 function Main() {
+  const isAuthorizationUser = useAppSelector(isUserAuthorized);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOffersAction());
     return () => {
       dispatch(setOffers([]));
     };
-  }, [dispatch]);
+  }, [dispatch, isAuthorizationUser]);
 
   const selectedCityName = useAppSelector(selectCityName);
   const isOfferDataLoading = useAppSelector(selectOfferDataLoadingStatus);

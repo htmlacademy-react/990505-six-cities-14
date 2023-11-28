@@ -16,7 +16,7 @@ const initialState: initialStateType = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(checkAuthAction.fulfilled, (state, action) => {
-      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.authorizationStatus = action.payload ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth;
       state.currentUserInfo = action.payload;
     })
     .addCase(checkAuthAction.rejected, (state) => {

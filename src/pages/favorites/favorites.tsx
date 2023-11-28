@@ -2,12 +2,14 @@ import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Page from '../../components/page';
-import {selectOfferDataLoadingStatus, selectOffers, useAppDispatch, useAppSelector} from '../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {fetchFavoriteOffersAction,} from '../../store/api-actions';
-import {setOffers} from '../../store/action';
+import {} from '../../store/action';
 import Spinner from '../../components/app/spinner';
 import FavoriteList from './favorite-list';
 import FavoriteListEmpty from './favorite-list-empty';
+import {setOffers} from '../../store/offers-data/offers-data';
+import {selectOfferDataLoadingStatus, selectOffers} from '../../store/offers-data/selectors';
 
 function Favorites() {
   const dispatch = useAppDispatch();

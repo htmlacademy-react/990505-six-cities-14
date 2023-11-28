@@ -2,11 +2,13 @@ import {AuthorizationStatus} from '../const';
 import {OfferPreviewType} from './offers-preview';
 import {CurrentUserType} from './current-user';
 
-export type initialStateType = {
+export type OffersData = {
   selectedCityName: string;
   offers: OfferPreviewType[];
   isOffersDataLoading: boolean;
-  favoriteOffers: OfferPreviewType[];
+};
+
+export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
   currentUserInfo: CurrentUserType | null;
 };

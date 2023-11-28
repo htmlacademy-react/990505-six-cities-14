@@ -3,12 +3,14 @@ import {CardsSizeType} from '../../types/card-size';
 import {MouseEvent, useState} from 'react';
 
 import {CurrentOfferType} from '../../types/current-offer';
-import {isUserAuthorized, useAppDispatch, useAppSelector} from '../../store/hooks';
-import {setFavoriteStatus} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {} from '../../store/action';
 import {OfferType} from '../../types/offers';
 import {OfferPreviewType} from '../../types/offers-preview';
 import {AppRoute} from '../../const';
 import {useNavigate} from 'react-router-dom';
+import {isUserAuthorized} from '../../store/user-process/selectors';
+import {setFavoriteStatus} from '../../store/offers-data/offers-data';
 
 const sizeMap: Record<CardsSizeType, { width: string; height: string }> = {
   small: { width: '18', height: '19' },

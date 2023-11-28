@@ -1,8 +1,10 @@
 import {logoutAction} from '../../../../store/api-actions';
 import {Link} from 'react-router-dom';
-import {selectCurrentUserInfo, selectOffers, useAppDispatch, useAppSelector} from '../../../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../store/hooks';
 import {MouseEvent} from 'react';
 import {AppRoute} from '../../../../const';
+import {selectCurrentUserInfo} from '../../../../store/user-process/selectors';
+import {selectOffers} from '../../../../store/offers-data/selectors';
 
 function UserLogoutBar() {
   const dispatch = useAppDispatch();

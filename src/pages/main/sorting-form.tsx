@@ -1,7 +1,8 @@
 import {SortingParameters} from '../../const';
 import {useEffect, useState} from 'react';
 import {OfferPreviewType} from '../../types/offers-preview';
-import {selectCityName, useAppSelector} from '../../store/hooks';
+import {useAppSelector} from '../../store/hooks';
+import {selectCityName} from '../../store/offers-data/selectors';
 
 type Props = {
   sortedOffers: OfferPreviewType[];

@@ -3,17 +3,16 @@ import {Locations} from '../../const';
 import LocationsList from './locations-list';
 import Cities from './cities';
 import {
-  isUserAuthorized,
-  selectCityName,
-  selectOfferDataLoadingStatus,
   useAppDispatch,
   useAppSelector
 } from '../../store/hooks';
 import {fetchOffersAction} from '../../store/api-actions';
 import {useEffect} from 'react';
-import {setOffers} from '../../store/action';
+import {} from '../../store/action';
 import Spinner from '../../components/app/spinner';
-
+import {isUserAuthorized} from '../../store/user-process/selectors';
+import {selectCityName, selectOfferDataLoadingStatus} from '../../store/offers-data/selectors';
+import {setOffers} from '../../store/offers-data/offers-data';
 
 function Main() {
   const isAuthorizationUser = useAppSelector(isUserAuthorized);

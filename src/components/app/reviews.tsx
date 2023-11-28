@@ -1,8 +1,9 @@
 import Review from '../../pages/offer/review';
 import {ReviewType} from '../../types/review';
 import ReviewsForm from '../../pages/offer/reviews-form';
-import {isUserAuthorized, useAppSelector} from '../../store/hooks';
+import {useAppSelector} from '../../store/hooks';
 import {CurrentOfferType} from '../../types/current-offer';
+import {isUserAuthorized} from '../../store/user-process/selectors';
 
 type ReviewsProps = {
   reviews: ReviewType[];

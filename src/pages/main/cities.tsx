@@ -5,8 +5,9 @@ import CitiesMap from '../../components/app/cities-map';
 import {addPluralEnding} from '../../utils';
 import 'leaflet/dist/leaflet.css';
 import PlacesCards from '../../components/places-cards/places-cards';
-import {selectCityName, selectOffers, useAppSelector} from '../../store/hooks';
+import {useAppSelector} from '../../store/hooks';
 import CitiesEmpty from './cities-empty';
+import {selectCityName, selectOffers} from '../../store/offers-data/selectors';
 
 function Cities() {
   const [sortedOffers, setSortedOffers] = useState<OfferPreviewType[]>([]);

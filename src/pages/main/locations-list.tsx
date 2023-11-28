@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../store/hooks';
-import {setSelectedCityName} from '../../store/action';
+import {} from '../../store/action';
+import {setSelectedCityName} from '../../store/offers-data/offers-data';
 
 type LocationsListProps = {
   locations: string[];

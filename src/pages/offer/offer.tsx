@@ -14,8 +14,9 @@ import {CurrentOfferType} from '../../types/current-offer';
 import {MAX_IMAGES_LENGTH, MAX_REVIEWS_LENGTH} from '../../const';
 import {AxiosError} from 'axios';
 import {NotFoundPage} from '../index';
-import {setOffers} from '../../store/action';
+import {} from '../../store/action';
 import {useAppDispatch} from '../../store/hooks';
+import {setOffers} from '../../store/offers-data/offers-data';
 
 function Offer() {
   const {offerId} = useParams();

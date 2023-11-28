@@ -49,7 +49,7 @@ function Login() {
                   name="password"
                   placeholder="Password"
                   required
-                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{3,}"
+                  pattern="(?=.*\d)(?=.*[a-Z]).{2,}"
                   title="Must contain at least one number and one letter"
                 />
               </div>

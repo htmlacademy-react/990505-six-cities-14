@@ -2,6 +2,9 @@ import Page from '../../components/page';
 import {FormEvent, useRef} from 'react';
 import {useAppDispatch} from '../../store/hooks';
 import {loginAction} from '../../store/api-actions';
+import {setSelectedCityName} from '../../store/offers-data/offers-data';
+import {AppRoute, Locations} from '../../const';
+import {Link} from 'react-router-dom';
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -17,6 +20,11 @@ function Login() {
       }));
     }
   };
+
+  function getRandomCity() {
+    return Locations[Math.floor(Math.random() * Locations.length)];
+  }
+  const randomCity = getRandomCity();
   return (
     <Page className="page page--gray page--login" title="6 cities: authorization">
       <main className="page__main page__main--login">
@@ -55,9 +63,9 @@ function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={AppRoute.Main} onClick={() => dispatch(setSelectedCityName(randomCity))}>
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>

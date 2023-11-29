@@ -1,16 +1,12 @@
 import Page from '../../components/page';
-import {AppRoute} from '../../const';
 import {FormEvent, useRef} from 'react';
 import {useAppDispatch} from '../../store/hooks';
 import {loginAction} from '../../store/api-actions';
-import {useNavigate} from 'react-router-dom';
-
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -19,7 +15,6 @@ function Login() {
         email: emailRef.current?.value,
         password: passwordRef.current?.value,
       }));
-      navigate(AppRoute.Main);
     }
   };
   return (

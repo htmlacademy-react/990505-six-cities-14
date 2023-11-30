@@ -27,7 +27,6 @@ const currentCustomIcon = new Icon({
 
 
 function CitiesMap({offers, currentCity, selectedOffer, mapBlock}: CitiesMapProps) {
-
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
 

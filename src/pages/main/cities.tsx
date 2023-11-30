@@ -9,10 +9,10 @@ import PlacesCards from '../../components/places-cards/places-cards';
 type CitiesProps = {
   sortedOffers: OfferPreviewType[];
   setSortedOffers: (sortedOffers: OfferPreviewType[]) => void;
-  getDefaultOrderSortedOffers: () => OfferPreviewType[];
+  defaultOrderSortedOffers: OfferPreviewType[];
 };
 
-function Cities({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers}: CitiesProps) {
+function Cities({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: CitiesProps) {
   const [selectedOffer, setHoveredOffer] = useState<OfferPreviewType | null>(null);
   const currentCity = sortedOffers[0].city;
   function handleCardHover(offerId: string | null) {
@@ -26,7 +26,7 @@ function Cities({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers}: Ci
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{sortedOffers.length} place{addPluralEnding(sortedOffers.length)} to stay in {currentCity.name}</b>
-          <SortingForm sortedOffers={sortedOffers} setSortedOffers={setSortedOffers} getDefaultOrderSortedOffers={getDefaultOrderSortedOffers} />
+          <SortingForm sortedOffers={sortedOffers} setSortedOffers={setSortedOffers} defaultOrderSortedOffers={defaultOrderSortedOffers} />
           <div className="cities__places-list places__list tabs__content">
             <PlacesCards offers={sortedOffers} onCardHover={handleCardHover} size='large' block='cities' />
           </div>

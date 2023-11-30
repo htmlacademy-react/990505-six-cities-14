@@ -30,8 +30,9 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
       setCurrentOffer({...currentOffer, reviews: [review, ...currentOffer.reviews]});
       setComment('');
       setRating('');
-      setIsReviewSending(false);
-    }).catch(() => setIsReviewSending(false));
+    })
+      .catch(() => true)
+      .finally(() => setIsReviewSending(false));
   };
   return (
     <form className="reviews__form form" action="#" method="post">

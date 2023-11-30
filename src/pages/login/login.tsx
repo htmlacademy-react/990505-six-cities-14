@@ -1,9 +1,9 @@
 import Page from '../../components/page';
-import {FormEvent, useRef} from 'react';
+import {FormEvent, useCallback, useRef} from 'react';
 import {useAppDispatch} from '../../store/hooks';
 import {loginAction} from '../../store/api-actions';
 import {setSelectedCityName} from '../../store/offers-data/offers-data';
-import {AppRoute, Locations} from '../../const';
+import {AppRoute, Locations, PATTERN_PASSWORD} from '../../const';
 import {Link} from 'react-router-dom';
 
 function Login() {
@@ -24,7 +24,9 @@ function Login() {
   function getRandomCity() {
     return Locations[Math.floor(Math.random() * Locations.length)];
   }
+
   const randomCity = getRandomCity();
+  const handleClick = useCallback(() => dispatch(setSelectedCityName(randomCity)), [dispatch, randomCity]);
   return (
     <Page className="page page--gray page--login" title="6 cities: authorization">
       <main className="page__main page__main--login">
@@ -52,7 +54,7 @@ function Login() {
                   name="password"
                   placeholder="Password"
                   required
-                  pattern="(?=.*\d)(?=.*[A-z]).{2,}"
+                  pattern={PATTERN_PASSWORD}
                   title="Must contain at least one number and one letter"
                 />
               </div>
@@ -63,7 +65,7 @@ function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main} onClick={() => dispatch(setSelectedCityName(randomCity))}>
+              <Link className="locations__item-link" to={AppRoute.Main} onClick={handleClick}>
                 <span>{randomCity}</span>
               </Link>
             </div>

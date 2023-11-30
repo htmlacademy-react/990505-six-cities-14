@@ -7,10 +7,10 @@ import {selectCityName} from '../../store/offers-data/selectors';
 type Props = {
   sortedOffers: OfferPreviewType[];
   setSortedOffers: (sortedOffers: OfferPreviewType[]) => void;
-  getDefaultOrderSortedOffers: () => OfferPreviewType[];
+  defaultOrderSortedOffers: OfferPreviewType[];
 }
 
-function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers}: Props) {
+function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: Props) {
   const selectedCity = useAppSelector(selectCityName);
   const [sortingParameter, setSortingParameter] = useState<SortingParameters>(SortingParameters.Default);
 
@@ -31,7 +31,7 @@ function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers
         sortedOffers = [...sortedOffers].sort((a, b) => b.rating - a.rating);
         break;
       default:
-        sortedOffers = getDefaultOrderSortedOffers();
+        sortedOffers = defaultOrderSortedOffers;
     }
     setSortedOffers(sortedOffers);
   };

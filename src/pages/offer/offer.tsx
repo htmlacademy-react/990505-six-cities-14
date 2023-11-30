@@ -143,7 +143,7 @@ function Offer() {
                     />
                   </div>
                   <span className="offer__user-name">{host.name}</span>
-                  {host.isPro && (<span className="offer__user-status">Pro</span>)}
+                  {host.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">{description}</p>

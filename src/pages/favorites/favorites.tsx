@@ -28,8 +28,8 @@ function Favorites() {
   }
 
   return (
-    <Page className={`page ${!offers.length && 'page--favorites-empty'}`} title="6 cities: favorites">
-      <main className={`page__main page__main--favorites ${!offers.length && 'page__main--favorites-empty'}`}>
+    <Page className={`page ${!offers.length ? 'page--favorites-empty' : ''}`} title="6 cities: favorites">
+      <main className={`page__main page__main--favorites ${!offers.length ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
           {offers.length ? <FavoriteList offers={offers} /> : <FavoriteListEmpty /> }
         </div>

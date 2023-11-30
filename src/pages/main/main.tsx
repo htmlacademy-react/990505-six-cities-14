@@ -7,7 +7,7 @@ import {
   useAppSelector
 } from '../../store/hooks';
 import {fetchOffersAction} from '../../store/api-actions';
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import Spinner from '../../components/app/spinner';
 import {isUserAuthorized} from '../../store/user-process/selectors';
 import {selectCityName, selectOfferDataLoadingStatus, selectOffers} from '../../store/offers-data/selectors';
@@ -30,10 +30,9 @@ function Main() {
   const [sortedOffers, setSortedOffers] = useState<OfferPreviewType[]>([]);
 
   const offers = useAppSelector(selectOffers);
-  const getDefaultOrderSortedOffers = useCallback(() => offers.filter((item) => item.city.name === selectedCityName), [offers, selectedCityName]);
+  const defaultOrderSortedOffers = useMemo(() => offers.filter((item) => item.city.name === selectedCityName), [offers, selectedCityName]);
 
-
-  useEffect(() => setSortedOffers(getDefaultOrderSortedOffers()), [getDefaultOrderSortedOffers]);
+  useEffect(() => setSortedOffers(defaultOrderSortedOffers), [defaultOrderSortedOffers]);
   if (isOfferDataLoading) {
     return <Spinner />;
   }
@@ -48,7 +47,7 @@ function Main() {
           </section>
         </div>
         {sortedOffers.length ?
-          <Cities getDefaultOrderSortedOffers={getDefaultOrderSortedOffers} sortedOffers={sortedOffers} setSortedOffers={setSortedOffers}/> :
+          <Cities defaultOrderSortedOffers={defaultOrderSortedOffers} sortedOffers={sortedOffers} setSortedOffers={setSortedOffers}/> :
           <CitiesEmpty currentCityName={selectedCityName}/>}
       </main>
     </Page>

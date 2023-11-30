@@ -1,15 +1,16 @@
 import {SortingParameters} from '../../const';
 import {useEffect, useState} from 'react';
 import {OfferPreviewType} from '../../types/offers-preview';
-import {selectCityName, useAppSelector} from '../../store/hooks';
+import {useAppSelector} from '../../store/hooks';
+import {selectCityName} from '../../store/offers-data/selectors';
 
 type Props = {
   sortedOffers: OfferPreviewType[];
   setSortedOffers: (sortedOffers: OfferPreviewType[]) => void;
-  getDefaultOrderSortedOffers: () => OfferPreviewType[];
+  defaultOrderSortedOffers: OfferPreviewType[];
 }
 
-function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers}: Props) {
+function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: Props) {
   const selectedCity = useAppSelector(selectCityName);
   const [sortingParameter, setSortingParameter] = useState<SortingParameters>(SortingParameters.Default);
 
@@ -27,10 +28,10 @@ function SortingForm({sortedOffers, setSortedOffers, getDefaultOrderSortedOffers
         sortedOffers = [...sortedOffers].sort((a, b) => a.price - b.price);
         break;
       case SortingParameters.Top:
-        sortedOffers = [...sortedOffers].sort((a, b) => a.rating - b.rating);
+        sortedOffers = [...sortedOffers].sort((a, b) => b.rating - a.rating);
         break;
       default:
-        sortedOffers = getDefaultOrderSortedOffers();
+        sortedOffers = defaultOrderSortedOffers;
     }
     setSortedOffers(sortedOffers);
   };

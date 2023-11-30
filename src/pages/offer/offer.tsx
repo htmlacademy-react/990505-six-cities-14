@@ -11,11 +11,11 @@ import BookmarkButton from '../../components/places-cards/bookmark-button';
 
 import {fetchOfferById, fetchOffersAction} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
-import {MAX_IMAGES_LENGTH, MAX_REVIEWS_LENGTH} from '../../const';
+import {MAX_IMAGES_LENGTH} from '../../const';
 import {AxiosError} from 'axios';
 import {NotFoundPage} from '../index';
-import {setOffers} from '../../store/action';
 import {useAppDispatch} from '../../store/hooks';
+import {setOffers} from '../../store/offers-data/offers-data';
 
 function Offer() {
   const {offerId} = useParams();
@@ -33,8 +33,6 @@ function Offer() {
     if (offerId) {
       fetchOfferById(offerId).then((responseOffer: CurrentOfferType | null) => {
         if (responseOffer) {
-          const reverseReviews = responseOffer.reviews.reverse().slice(0, MAX_REVIEWS_LENGTH);
-          responseOffer.reviews = reverseReviews;
           setCurrentOffer(responseOffer);
         }
       }).catch((response: AxiosError<{message:string}>) => {
@@ -114,7 +112,7 @@ function Offer() {
                   {bedrooms} Bedroom{addPluralEnding(bedrooms)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} maxAdult{addPluralEnding(maxAdults)}
+                  Max {maxAdults} adult{addPluralEnding(maxAdults)}
                 </li>
               </ul>
               <div className="offer__price">
@@ -145,7 +143,7 @@ function Offer() {
                     />
                   </div>
                   <span className="offer__user-name">{host.name}</span>
-                  <span className="offer__user-status">{host.isPro && 'Pro'}</span>
+                  {host.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">{description}</p>
@@ -154,7 +152,7 @@ function Offer() {
               <Reviews reviews={currentOffer.reviews} offerId={offerId} currentOffer={currentOffer} setCurrentOffer={setCurrentOffer}/>
             </div>
           </div>
-          {offerId && <CitiesMap offers={[...currentOffer.nearPlaces, currentOffer.offer]} currentCity={city} mapBlock='offer'/>}
+          {offerId && <CitiesMap offers={[...currentOffer.nearPlaces, currentOffer.offer]} selectedOffer={currentOffer.offer} currentCity={city} mapBlock='offer'/>}
         </section>
         <div className="container">
           <section className="near-places places">

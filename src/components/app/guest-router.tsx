@@ -1,7 +1,8 @@
 import {Navigate} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 import {ReactNode} from 'react';
-import {selectAuthorizationStatus, useAppSelector} from '../../store/hooks';
+import {useAppSelector} from '../../store/hooks';
+import {selectAuthorizationStatus} from '../../store/user-process/selectors';
 
 type GuestRouteProps = {
   children: ReactNode | ReactNode[];

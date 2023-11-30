@@ -7,8 +7,6 @@ import {checkAuthAction} from './store/api-actions';
 
 store.dispatch(checkAuthAction());
 
-//TODO решить проблему с перерисовкой кол-ва фаворитов у пользователя
-
 const root = createRoot(
   document.getElementById('root') as HTMLElement
 );

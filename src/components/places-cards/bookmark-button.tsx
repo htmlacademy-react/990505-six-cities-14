@@ -2,11 +2,8 @@ import {postOfferFavoriteStatus} from '../../store/api-actions';
 import {CardsSizeType} from '../../types/card-size';
 import {MouseEvent, useState} from 'react';
 
-import {CurrentOfferType} from '../../types/current-offer';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
-import {} from '../../store/action';
 import {OfferType} from '../../types/offers';
-import {OfferPreviewType} from '../../types/offers-preview';
 import {AppRoute} from '../../const';
 import {useNavigate} from 'react-router-dom';
 import {isUserAuthorized} from '../../store/user-process/selectors';
@@ -17,13 +14,11 @@ const sizeMap: Record<CardsSizeType, { width: string; height: string }> = {
   large: { width: '31', height: '33' },
 };
 
-
 type BookmarkButtonProps = {
   offerId: string;
   favoriteStatus: boolean;
   block: string;
   size?: CardsSizeType;
-  currentOffer: CurrentOfferType | OfferPreviewType;
 }
 
 function BookmarkButton({offerId, favoriteStatus, block, size = 'small'}: BookmarkButtonProps) {

@@ -18,11 +18,14 @@ export const offersData = createSlice({
       state.offers = action.payload;
     },
     setFavoriteStatus(state, action: PayloadAction<{offerId: string; status: boolean}>) {
-      state.offers.map((item) => {
+      const updatedOffers: OfferPreviewType[] = [];
+      state.offers.forEach((item) => {
         if (item.id === action.payload.offerId) {
           item.isFavorite = action.payload.status;
         }
+        updatedOffers.push(item);
       });
+      state.offers = updatedOffers;
     },
     setSelectedCityName(state, action: PayloadAction<string>) {
       state.selectedCityName = action.payload;

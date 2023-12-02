@@ -1,5 +1,5 @@
 import {MouseEvent, useState} from 'react';
-import {MAX_COMMENT_LENGTH, MAX_REVIEWS_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
 import Rating from './rating';
 import {postOfferReview} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
@@ -27,13 +27,12 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
     evt.preventDefault();
     setIsReviewSending(true);
     postOfferReview(offerId, reviewData).then((review: ReviewType) => {
-      setCurrentOffer({...currentOffer, reviews: [review, ...currentOffer.reviews].slice(0, MAX_REVIEWS_LENGTH)});
+      setCurrentOffer({...currentOffer, reviews: [review, ...currentOffer.reviews]});
+      setComment('');
+      setRating('');
     })
-      .finally(() => {
-        setIsReviewSending(false);
-      });
-    setComment('');
-    setRating('');
+      .catch(() => true)
+      .finally(() => setIsReviewSending(false));
   };
   return (
     <form className="reviews__form form" action="#" method="post">

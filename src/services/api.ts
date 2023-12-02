@@ -13,13 +13,14 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  const StatusCodeMapping: Record<number, boolean> = {
-    [StatusCodes.BAD_REQUEST]: true,
-    [StatusCodes.UNAUTHORIZED]: true,
-    [StatusCodes.NOT_FOUND]: true,
-    [StatusCodes.CONFLICT]: true
-  };
-  const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+  const StatusCodeMapping = [
+    StatusCodes.BAD_REQUEST,
+    StatusCodes.UNAUTHORIZED,
+    StatusCodes.NOT_FOUND,
+    StatusCodes.CONFLICT
+  ];
+
+  const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping.includes(response.status);
   api.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
       const token = getToken();

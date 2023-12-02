@@ -1,5 +1,5 @@
-import {AuthorizationStatus, NameSpace} from '../../const';
 import {StateType} from '../../types/state';
+import {AuthorizationStatus, NameSpace} from '../../const';
 import { createSelector } from 'reselect';
 
 export const selectAuthorizationStatus = (state: StateType) => state[NameSpace.User].authorizationStatus;

@@ -4,7 +4,6 @@ import {AppRoute} from '../../const';
 import Page from '../../components/page';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {fetchFavoriteOffersAction,} from '../../store/api-actions';
-import {} from '../../store/action';
 import Spinner from '../../components/app/spinner';
 import FavoriteList from './favorite-list';
 import FavoriteListEmpty from './favorite-list-empty';
@@ -29,8 +28,8 @@ function Favorites() {
   }
 
   return (
-    <Page className="page" title="6 cities: favorites">
-      <main className="page__main page__main--favorites">
+    <Page className={`page ${!offers.length ? 'page--favorites-empty' : ''}`} title="6 cities: favorites">
+      <main className={`page__main page__main--favorites ${!offers.length ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
           {offers.length ? <FavoriteList offers={offers} /> : <FavoriteListEmpty /> }
         </div>

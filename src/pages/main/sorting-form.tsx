@@ -22,13 +22,13 @@ function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: 
     setSortingParameter(parameter);
     switch (parameter) {
       case SortingParameters.PriceHighToLow:
-        sortedOffers = [...sortedOffers].sort((a, b) => b.price - a.price);
+        sortedOffers = sortedOffers.toSorted((a, b) => b.price - a.price);
         break;
       case SortingParameters.PriceLowToHigh:
-        sortedOffers = [...sortedOffers].sort((a, b) => a.price - b.price);
+        sortedOffers = sortedOffers.toSorted((a, b) => a.price - b.price);
         break;
       case SortingParameters.Top:
-        sortedOffers = [...sortedOffers].sort((a, b) => b.rating - a.rating);
+        sortedOffers = sortedOffers.toSorted((a, b) => b.rating - a.rating);
         break;
       default:
         sortedOffers = defaultOrderSortedOffers;

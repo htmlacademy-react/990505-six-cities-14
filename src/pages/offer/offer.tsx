@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import Page from '../../components/page';
 import {OfferType} from '../../types/offers';
-import Reviews from '../../components/app/reviews';
+import Reviews from './reviews';
 import {addPluralEnding, offerRatingInPercentage} from '../../utils';
 import CitiesMap from '../../components/app/cities-map';
 import PlacesCards from '../../components/places-cards/places-cards';
@@ -97,7 +97,7 @@ function Offer() {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <BookmarkButton size='large' favoriteStatus={isFavorite} currentOffer={currentOffer} offerId={offerId} block='offer' />
+                <BookmarkButton size='large' favoriteStatus={isFavorite} offerId={offerId} block='offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

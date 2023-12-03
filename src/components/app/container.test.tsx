@@ -3,9 +3,7 @@ import Container from './container';
 
 describe('Component: Container', () => {
   it('should render correctly', () => {
-    render(<Container>
-      <div>test</div>
-    </Container>);
+    render(<Container><div>test</div></Container>);
     expect(screen.getByText('test')).toBeInTheDocument();
   });
 });

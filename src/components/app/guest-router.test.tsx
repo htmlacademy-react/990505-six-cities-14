@@ -14,21 +14,17 @@ vi.mock('react-router-dom', () => ({
 
 describe('Component: GuestRoute', () => {
   it('should render correctly on logged', () => {
-    const {withStoreComponent} = withStore(<GuestRoute redirectTo="/some-url">
-      <div>content</div>
-    </GuestRoute>, makeFakeStore({
+    const {withStoreComponent} = withStore(<GuestRoute redirectTo="/some-url"><div>content</div></GuestRoute>, makeFakeStore({
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.Auth, currentUserInfo: makeFakeUserInfo()},
     }));
 
     render(withStoreComponent);
-    expect(screen.getByTestId('navigate').getAttribute('to')).eq('/some-url');
+    expect(screen.getByTestId('navigate')).toHaveAttribute('to', '/some-url');
     expect(screen.getByTestId('navigate')).toBeInTheDocument();
   });
 
   it('should render correctly on guest', () => {
-    const {withStoreComponent} = withStore(<GuestRoute redirectTo="/some-url">
-      <div>content</div>
-    </GuestRoute>, makeFakeStore());
+    const {withStoreComponent} = withStore(<GuestRoute redirectTo="/some-url"><div>content</div></GuestRoute>, makeFakeStore());
 
     render(withStoreComponent);
 

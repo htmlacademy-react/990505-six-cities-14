@@ -14,9 +14,7 @@ vi.mock('react-router-dom', () => ({
 
 describe('Component: PrivateRoute', () => {
   it('should render correctly on logged', () => {
-    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url">
-      <div>content</div>
-    </PrivateRoute>, makeFakeStore({
+    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore({
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.Auth, currentUserInfo: makeFakeUserInfo()},
     }));
 
@@ -26,13 +24,11 @@ describe('Component: PrivateRoute', () => {
   });
 
   it('should render correctly on guest', () => {
-    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url">
-      <div>content</div>
-    </PrivateRoute>, makeFakeStore());
+    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore());
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId('navigate').getAttribute('to')).eq('/some-url');
+    expect(screen.getByTestId('navigate')).toHaveAttribute('to', '/some-url');
     expect(screen.getByTestId('navigate')).toBeInTheDocument();
   });
 });

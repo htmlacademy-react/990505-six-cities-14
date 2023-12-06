@@ -1,5 +1,5 @@
 import {MouseEvent, useState} from 'react';
-import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, ratingMap} from '../../const';
+import {CommentLength, ratingMap} from '../../const';
 import Rating from './rating';
 import {postOfferReview} from '../../store/api-actions';
 import {CurrentOfferType} from '../../types/current-offer';
@@ -19,11 +19,11 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
     comment: comment,
     rating: +rating,
   };
-  const isValid = comment.length >= MIN_COMMENT_LENGTH &&
-    comment.length <= MAX_COMMENT_LENGTH &&
+  const isValid = comment.length >= +CommentLength.Min &&
+    comment.length <= +CommentLength.Max &&
     rating !== '';
 
-  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+  const handleButtonClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     setIsReviewSending(true);
     postOfferReview(offerId, reviewData).then((review: ReviewType) => {
@@ -60,13 +60,13 @@ function ReviewsForm({offerId, currentOffer, setCurrentOffer}: ReviewsFormProps)
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe
           your stay with at least{' '}
-          <b className="reviews__text-amount">{MIN_COMMENT_LENGTH} characters</b>.
+          <b className="reviews__text-amount">{CommentLength.Min} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!isValid || isReviewSending}
-          onClick={handleClick}
+          onClick={handleButtonClick}
         >
           Submit
         </button>

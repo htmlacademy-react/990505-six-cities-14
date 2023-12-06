@@ -48,9 +48,10 @@ export enum SortingParameters {
   Top = 'Top rated first'
 }
 
-export const MAX_COMMENT_LENGTH = 300;
-
-export const MIN_COMMENT_LENGTH = 50;
+export enum CommentLength {
+  Max = 300,
+  Min = 50
+}
 
 export const ratingMap = {
   5: 'perfect',

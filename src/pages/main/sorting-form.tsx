@@ -15,7 +15,13 @@ function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: 
   const [sortingParameter, setSortingParameter] = useState<SortingParameters>(SortingParameters.Default);
 
   useEffect(() => {
-    setSortingParameter(SortingParameters.Default);
+    let isMounted = true;
+    if (isMounted) {
+      setSortingParameter(SortingParameters.Default);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [selectedCity]);
 
   const sortByParameter = (parameter: SortingParameters) => {
@@ -37,14 +43,14 @@ function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: 
   };
   const [isOpened, setIsOpened] = useState(false);
 
-  function handleClick() {
+  function handleFormClick() {
     setIsOpened((prevIsOpened) => !prevIsOpened);
   }
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0} onClick={handleClick}>
+      <span className="places__sorting-type" tabIndex={0} onClick={handleFormClick}>
         {sortingParameter}
         <svg className="places__sorting-arrow" width={7} height={4}><use xlinkHref="#icon-arrow-select" /></svg>
       </span>
@@ -57,7 +63,7 @@ function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: 
             onClick={
               () => {
                 sortByParameter(item as SortingParameters);
-                handleClick();
+                handleFormClick();
               }
             }
           >

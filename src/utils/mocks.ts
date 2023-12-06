@@ -1,4 +1,4 @@
-import {image, name, internet, lorem, datatype, address, helpers, commerce, date} from 'faker';
+import {image, name, internet, lorem, datatype, address, helpers, commerce} from 'faker';
 import {CurrentUserType} from '../types/current-user.js';
 import {AuthorizationStatus, DEFAULT_CITY, Locations} from '../const.js';
 import { Action } from 'redux';
@@ -8,10 +8,7 @@ import { StateType } from '../types/state';
 import {OfferPreviewType} from '../types/offers-preview';
 import {CityType} from '../types/city';
 import {LocationType} from '../types/location';
-import {OfferType} from '../types/offers';
-import {UserType} from '../types/user';
 import {AuthDataType} from '../types/auth-data';
-import {ReviewType} from '../types/review';
 
 export type AppThunkDispatch = ThunkDispatch<StateType, ReturnType<typeof createAPI>, Action>;
 
@@ -49,25 +46,6 @@ export const makeFakeOffer = (): OfferPreviewType => ({
   type: lorem.word(),
 });
 
-export const makeFakeUser = (): UserType => ({
-  name: name.findName(),
-  avatarUrl: image.imageUrl(),
-  isPro: datatype.boolean(),
-});
-
-
-export const makeFakeCurrentOffer = (): OfferType => ({
-  ...makeFakeOffer(),
-  bedrooms: datatype.number({ min: 1, max:50 }),
-  description: lorem.words(),
-  goods: ['wi-fi', 'kitchen'],
-  host: makeFakeUser(),
-  images: new Array(6).fill(null).map(() => (
-    image.city()
-  )),
-  maxAdults: datatype.number({ min: 1, max:15 }),
-});
-
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export const makeFakeStore = (initialState?: Partial<StateType>) => ({
@@ -78,14 +56,6 @@ export const makeFakeStore = (initialState?: Partial<StateType>) => ({
     selectedCityName: DEFAULT_CITY,
   },
   ...initialState ?? {},
-});
-
-export const makeFakeReview = (): ReviewType => ({
-  comment: lorem.paragraph(),
-  date: new Date(date.recent()).toLocaleString(),
-  id: datatype.number({ min: 1, max: 1000 }),
-  rating: datatype.number({ min: 1, max:5 }),
-  user: makeFakeUser(),
 });
 
 

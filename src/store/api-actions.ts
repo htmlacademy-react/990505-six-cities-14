@@ -23,7 +23,7 @@ export const fetchOffersAction = createAsyncThunk<OfferPreviewType[], undefined,
     return data;
   }
 );
-//TODO undefined undefined
+
 export const fetchFavoriteOffersAction = createAsyncThunk<OfferPreviewType[], undefined, AsyncThunkConfigType>(
   'offers/fetchFavoriteOffers',
   async (_arg, {extra: api}) => {

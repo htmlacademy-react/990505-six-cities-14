@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {AppRoute, AuthorizationStatus, Locations, NameSpace} from '../../const';
 import App from './app';
-import {withStore} from '../../utils/mock-component';
+import {makeComponentWithStore} from '../../utils/mock-component';
 import {makeFakeOffer, makeFakeStore, makeFakeUserInfo} from '../../utils/mocks';
 
 describe('Application Routing', () => {
@@ -9,7 +9,7 @@ describe('Application Routing', () => {
     Object.defineProperty(window, 'location', {
       value: new URL('https://blabla/')
     });
-    const {withStoreComponent} = withStore(<App/>, makeFakeStore());
+    const {withStoreComponent} = makeComponentWithStore(<App/>, makeFakeStore());
 
     render(withStoreComponent);
 
@@ -20,7 +20,7 @@ describe('Application Routing', () => {
     Object.defineProperty(window, 'location', {
       value: new URL(`https://blabla${AppRoute.Offer}/1`)
     });
-    const {withStoreComponent} = withStore(<App/>, makeFakeStore());
+    const {withStoreComponent} = makeComponentWithStore(<App/>, makeFakeStore());
 
     render(withStoreComponent);
 
@@ -34,7 +34,7 @@ describe('Application Routing', () => {
     });
     const offer = makeFakeOffer();
     offer.isFavorite = true;
-    const {withStoreComponent} = withStore(<App/>, makeFakeStore({
+    const {withStoreComponent} = makeComponentWithStore(<App/>, makeFakeStore({
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.Auth, currentUserInfo: makeFakeUserInfo()},
       [NameSpace.Offers]: {offers: [offer], selectedCityName: Locations[0], isOffersDataLoading: false}
     }));
@@ -48,7 +48,7 @@ describe('Application Routing', () => {
     Object.defineProperty(window, 'location', {
       value: new URL(`https://blabla${AppRoute.Login}`)
     });
-    const {withStoreComponent} = withStore(<App/>, makeFakeStore());
+    const {withStoreComponent} = makeComponentWithStore(<App/>, makeFakeStore());
 
     render(withStoreComponent);
 
@@ -59,7 +59,7 @@ describe('Application Routing', () => {
     Object.defineProperty(window, 'location', {
       value: new URL('https://blabla/unknown')
     });
-    const {withStoreComponent} = withStore(<App/>, makeFakeStore());
+    const {withStoreComponent} = makeComponentWithStore(<App/>, makeFakeStore());
 
     render(withStoreComponent);
 

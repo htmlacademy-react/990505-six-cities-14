@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {AuthorizationStatus, NameSpace} from '../../const';
 import {makeFakeStore, makeFakeUserInfo} from '../../utils/mocks';
-import {withStore} from '../../utils/mock-component';
+import {makeComponentWithStore} from '../../utils/mock-component';
 import {vi} from 'vitest';
 import PrivateRoute from './private-route';
 import {NavigateProps} from 'react-router-dom';
@@ -14,7 +14,7 @@ vi.mock('react-router-dom', () => ({
 
 describe('Component: PrivateRoute', () => {
   it('should render correctly on logged', () => {
-    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore({
+    const {withStoreComponent} = makeComponentWithStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore({
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.Auth, currentUserInfo: makeFakeUserInfo()},
     }));
 
@@ -24,7 +24,7 @@ describe('Component: PrivateRoute', () => {
   });
 
   it('should render correctly on guest', () => {
-    const {withStoreComponent} = withStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore());
+    const {withStoreComponent} = makeComponentWithStore(<PrivateRoute redirectTo="/some-url"><div>content</div></PrivateRoute>, makeFakeStore());
 
     render(withStoreComponent);
 

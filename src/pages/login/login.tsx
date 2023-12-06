@@ -11,7 +11,7 @@ function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (emailRef.current && emailRef.current?.value && passwordRef.current && passwordRef.current?.value) {
       dispatch(loginAction({
@@ -26,14 +26,14 @@ function Login() {
   }
 
   const randomCity = getRandomCity();
-  const handleClick = useCallback(() => dispatch(setSelectedCityName(randomCity)), [dispatch, randomCity]);
+  const handleLinkClick = useCallback(() => dispatch(setSelectedCityName(randomCity)), [dispatch, randomCity]);
   return (
     <Page className="page page--gray page--login" title="6 cities: authorization">
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -65,7 +65,7 @@ function Login() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main} onClick={handleClick}>
+              <Link className="locations__item-link" to={AppRoute.Main} onClick={handleLinkClick}>
                 <span>{randomCity}</span>
               </Link>
             </div>

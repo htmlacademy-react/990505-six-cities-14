@@ -10,7 +10,7 @@ function UserLogoutBar() {
   const dispatch = useAppDispatch();
   const currentUserInfo = useAppSelector(selectCurrentUserInfo);
   const favoriteOffersCount = useAppSelector(selectOffers).filter((offer) => offer.isFavorite).length;
-  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+  const handleLinkClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
@@ -28,7 +28,7 @@ function UserLogoutBar() {
           </Link>
         </li>
         <li className="header__nav-item">
-          <Link className="header__nav-link" to="src/components/app/header/user-status-bar/user-status-bar#" onClick={handleClick}>
+          <Link className="header__nav-link" to="src/components/app/header/user-status-bar/user-status-bar#" onClick={handleLinkClick}>
             <span className="header__signout">Sign out</span>
           </Link>
         </li>

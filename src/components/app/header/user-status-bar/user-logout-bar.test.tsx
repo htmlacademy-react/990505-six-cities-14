@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import UserLogoutBar from './user-logout-bar';
 import {makeFakeOffer, makeFakeStore, makeFakeUserInfo} from '../../../../utils/mocks';
-import {withStore} from '../../../../utils/mock-component';
+import {makeComponentWithStore} from '../../../../utils/mock-component';
 import {AuthorizationStatus, Locations, NameSpace} from '../../../../const';
 
 describe('Component: UserLogoutBar', () => {
@@ -13,7 +13,7 @@ describe('Component: UserLogoutBar', () => {
     offers[1].isFavorite = false;
     offers[2].isFavorite = true;
 
-    const { withStoreComponent } = withStore(<UserLogoutBar />, makeFakeStore({
+    const { withStoreComponent } = makeComponentWithStore(<UserLogoutBar />, makeFakeStore({
       [NameSpace.User]: {
         currentUserInfo: user,
         authorizationStatus: AuthorizationStatus.Auth,

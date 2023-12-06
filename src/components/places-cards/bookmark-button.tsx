@@ -30,7 +30,7 @@ function BookmarkButton({offerId, favoriteStatus, block, size = 'small'}: Bookma
       ${status ? `${block}__bookmark-button--active` : ''}
       button`;
   const navigate = useNavigate();
-  const handleClick = (evt: MouseEvent<HTMLElement>) => {
+  const handleButtonClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     if (isAuthorizationUser) {
       postOfferFavoriteStatus(offerId, !status).then((value: OfferType) => {
@@ -46,7 +46,7 @@ function BookmarkButton({offerId, favoriteStatus, block, size = 'small'}: Bookma
     <button
       className={bookmarkClasses}
       type="button"
-      onClick={handleClick}
+      onClick={handleButtonClick}
     >
       <svg className={`${block}__bookmark-icon`} {...sizeMap[size]}>
         <use xlinkHref="#icon-bookmark" />

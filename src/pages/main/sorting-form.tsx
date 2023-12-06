@@ -15,7 +15,13 @@ function SortingForm({sortedOffers, setSortedOffers, defaultOrderSortedOffers}: 
   const [sortingParameter, setSortingParameter] = useState<SortingParameters>(SortingParameters.Default);
 
   useEffect(() => {
-    setSortingParameter(SortingParameters.Default);
+    let isMounted = true;
+    if (isMounted) {
+      setSortingParameter(SortingParameters.Default);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [selectedCity]);
 
   const sortByParameter = (parameter: SortingParameters) => {

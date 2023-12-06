@@ -32,7 +32,16 @@ function Main() {
   const offers = useAppSelector(selectOffers);
   const defaultOrderSortedOffers = useMemo(() => offers.filter((item) => item.city.name === selectedCityName), [offers, selectedCityName]);
 
-  useEffect(() => setSortedOffers(defaultOrderSortedOffers), [defaultOrderSortedOffers]);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setSortedOffers(defaultOrderSortedOffers);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [defaultOrderSortedOffers]);
+
   if (isOfferDataLoading) {
     return <Spinner />;
   }

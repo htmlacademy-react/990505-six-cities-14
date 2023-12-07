@@ -4,9 +4,6 @@ import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
 
-class DetailMessageType {
-}
-
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
@@ -35,7 +32,7 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<DetailMessageType>) => {
+    (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = <{message: string}>(error.response.data);
         toast.warn(detailMessage.message);
